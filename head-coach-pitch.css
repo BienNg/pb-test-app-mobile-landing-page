@@ -1606,7 +1606,7 @@ body.pitch-deck-active .deck-arrows.on-dark-slide .deck-arrow {
   position: relative;
   z-index: 1;
   display: grid;
-  gap: var(--space-10);
+  gap: var(--space-16);
 }
 
 .pitch-deck .slide-layout-approach-overview .approach-overview-head {
