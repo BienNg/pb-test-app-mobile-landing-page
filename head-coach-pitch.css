@@ -358,6 +358,24 @@
   margin-bottom: var(--space-4);
 }
 
+.pitch-deck .pitch-spotlight {
+  font-size: 1.18em;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  color: var(--white);
+  background: linear-gradient(
+    135deg,
+    rgba(45, 106, 79, 0.96) 0%,
+    rgba(82, 183, 136, 0.92) 100%
+  );
+  padding: 0.12em 0.55em 0.16em;
+  border-radius: 999px;
+  box-shadow: 0 10px 22px rgba(0, 0, 0, 0.18);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+}
+
 .pitch-deck .cta-title {
   font-family: var(--pitch-serif);
   font-weight: 400;
@@ -437,6 +455,156 @@
   color: var(--gray-300);
   margin-bottom: var(--space-4);
   text-align: left;
+}
+
+.pitch-deck #vision {
+  /* Make the slide-2 bar chart feel more “stat-like” */
+  --pitch-bar-height: 34px;
+}
+
+.pitch-deck #vision .slide-layout-split {
+  gap: var(--space-10);
+}
+
+.pitch-deck #vision .slide-layout-split .slide-copy {
+  padding-right: 0;
+}
+
+.pitch-deck #vision .chart-title {
+  font-size: 0.8rem;
+  margin-bottom: var(--space-6);
+  width: 100%;
+  max-width: 360px; /* align with chart */
+}
+
+.pitch-deck #vision .slide-visual {
+  align-items: flex-start;
+}
+
+.pitch-deck #vision .chart-bar-wrap {
+  max-width: 360px;
+  gap: var(--space-6);
+  margin: 0; /* ensure it aligns with title */
+}
+
+.pitch-deck #vision .chart-bar-label {
+  flex: 0 0 112px;
+  font-size: 0.9375rem;
+}
+
+.pitch-deck #vision .chart-annotated {
+  position: relative;
+  width: 100%;
+  max-width: 360px; /* keep bars aligned with title */
+}
+
+.pitch-deck #vision .chart-note {
+  position: absolute;
+  left: auto;
+  right: calc(100% + 14px - 50px); /* move 50px right */
+  top: calc(72% + 50px); /* move 50px down */
+  transform: translateY(-50%) rotate(-2deg);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.pitch-deck #vision .chart-note-text {
+  position: relative;
+  top: 0;
+  transform: translate(-40px, -30px);
+  font-family: var(--font-sans);
+  font-style: italic;
+  font-weight: 600;
+  font-size: 1.02rem;
+  line-height: 1.2;
+  color: rgba(255, 255, 255, 0.98);
+  padding: 0.75rem 0.9rem;
+  border-radius: 18px;
+  background: rgba(0, 0, 0, 0.32);
+  border: 2px dashed rgba(255, 255, 255, 0.46);
+  box-shadow: 0 14px 34px rgba(0, 0, 0, 0.25);
+  text-shadow: 0 2px 0 rgba(0, 0, 0, 0.35);
+  backdrop-filter: blur(8px) saturate(120%);
+  -webkit-backdrop-filter: blur(8px) saturate(120%);
+  white-space: nowrap;
+  opacity: 0.95;
+  order: 2;
+}
+
+.pitch-deck #vision .chart-note-arrow {
+  width: 210px;
+  height: 74px;
+  background: url("svg/stroke-medium-curve.svg") no-repeat center / contain;
+  filter: invert(1) opacity(0.78) drop-shadow(0 10px 18px rgba(0, 0, 0, 0.25));
+  transform-origin: 100% 50%;
+  transform: rotate(7deg);
+  order: 1;
+}
+
+/* Prevent side-note overlapping the left column on smaller widths */
+@media (max-width: 1300px) {
+  .pitch-deck #vision .chart-note {
+    position: static;
+    right: auto;
+    left: auto;
+    top: auto;
+    transform: rotate(-1.5deg);
+    margin: 0 0 var(--space-4);
+  }
+
+  .pitch-deck #vision .chart-note-text {
+    transform: none;
+  }
+
+  .pitch-deck #vision .chart-note-arrow {
+    display: none;
+  }
+}
+
+@media (max-width: 900px) {
+  .pitch-deck #vision .chart-note {
+    position: static;
+    transform: rotate(-1.5deg);
+    margin: 0 0 var(--space-4);
+    justify-content: center;
+  }
+
+  .pitch-deck #vision .chart-note-text {
+    width: min(320px, 92vw);
+    text-align: center;
+    white-space: normal;
+  }
+
+  .pitch-deck #vision .chart-note-arrow {
+    display: none;
+  }
+}
+
+.pitch-deck #vision .chart-bar-row.is-key-stat {
+  padding: 0.6rem 0.7rem;
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.pitch-deck #vision .chart-bar-row.is-key-stat .chart-bar-label {
+  color: var(--white);
+  font-weight: 800;
+  letter-spacing: -0.01em;
+}
+
+.pitch-deck #vision .chart-bar-row.is-key-stat .chart-bar-track {
+  background: rgba(255, 255, 255, 0.14);
+  box-shadow: 0 0 0 3px rgba(82, 183, 136, 0.12);
+}
+
+.pitch-deck #vision .chart-bar-row.is-key-stat .chart-bar-fill.low {
+  background: linear-gradient(90deg, rgba(212, 163, 115, 0.9) 0%, rgba(212, 163, 115, 0.55) 100%);
+  box-shadow: 0 0 18px rgba(212, 163, 115, 0.22);
 }
 
 .pitch-deck .chart-bar-wrap {
