@@ -96,6 +96,13 @@ a {
               background var(--duration-normal) var(--ease-out);
 }
 
+/* Reduce header height on phone screens */
+@media (max-width: 768px) {
+  .site-header {
+    padding: var(--space-2) var(--space-4);
+  }
+}
+
 .site-header.scrolled {
   border-bottom-color: var(--gray-100);
 }
@@ -145,6 +152,11 @@ a {
   border: none;
   cursor: pointer;
   color: var(--charcoal);
+  position: relative;
+  width: 40px;
+  height: 40px;
+  align-items: center;
+  justify-content: center;
 }
 
 .menu-toggle span {
@@ -152,7 +164,22 @@ a {
   height: 2px;
   background: currentColor;
   border-radius: 1px;
-  transition: transform var(--duration-normal) var(--ease-out);
+  transition: transform var(--duration-normal) var(--ease-out),
+              opacity var(--duration-normal) var(--ease-out);
+  display: block;
+}
+
+/* Hamburger animation when menu is open */
+.menu-toggle.is-active span:nth-child(1) {
+  transform: translateY(7px) rotate(45deg);
+}
+
+.menu-toggle.is-active span:nth-child(2) {
+  opacity: 0;
+}
+
+.menu-toggle.is-active span:nth-child(3) {
+  transform: translateY(-7px) rotate(-45deg);
 }
 
 .nav.is-open {
@@ -164,9 +191,18 @@ a {
   bottom: 0;
   flex-direction: column;
   justify-content: center;
+  align-items: center;
   gap: var(--space-6);
   background: var(--white);
   font-size: 1.25rem;
+  z-index: 99;
+}
+
+/* Adjust menu position on phone screens */
+@media (max-width: 768px) {
+  .nav.is-open {
+    top: 45px;
+  }
 }
 
 @media (min-width: 768px) {

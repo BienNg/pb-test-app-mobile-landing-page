@@ -6,8 +6,19 @@
   var nav = document.querySelector('.nav');
   if (menuToggle && nav) {
     menuToggle.addEventListener('click', function () {
-      nav.classList.toggle('is-open');
-      menuToggle.setAttribute('aria-label', nav.classList.contains('is-open') ? 'Close menu' : 'Open menu');
+      var isOpen = nav.classList.toggle('is-open');
+      menuToggle.classList.toggle('is-active', isOpen);
+      menuToggle.setAttribute('aria-label', isOpen ? 'Close menu' : 'Open menu');
+    });
+    
+    // Close menu when clicking a nav link
+    var navLinks = nav.querySelectorAll('a');
+    navLinks.forEach(function(link) {
+      link.addEventListener('click', function() {
+        nav.classList.remove('is-open');
+        menuToggle.classList.remove('is-active');
+        menuToggle.setAttribute('aria-label', 'Open menu');
+      });
     });
   }
 
