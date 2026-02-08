@@ -1,0 +1,9 @@
+{
+  "name": "pb-test-app-mobile-landing-page",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "node scripts/build.mjs"
+  }
+}
+

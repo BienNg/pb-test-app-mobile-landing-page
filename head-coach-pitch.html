@@ -1,3 +1,8 @@
+<!--
+  GENERATED FILE — DO NOT EDIT DIRECTLY
+  Source: src/pages/head-coach-pitch/head-coach-pitch.html
+  Build:  npm run build
+-->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -26,6 +31,7 @@
       </button>
     </div>
   </header>
+
 
   <main class="pitch pitch-deck" id="pitch-deck">
     <!-- Section 1 – Hero (Head Coach Recruitment) -->
@@ -181,6 +187,7 @@
       </div>
     </section>
 
+
     <!-- Section 5 – The Role -->
     <section id="role" class="deck-slide section" data-slide="4" data-nav-label="Your role">
       <div class="container reveal slide-layout-role">
@@ -301,6 +308,7 @@
       </div>
     </section>
 
+
     <!-- Section 7 – Why This Is Different -->
     <section id="why" class="deck-slide section" data-slide="8" data-nav-label="Why this path">
       <div class="container reveal">
@@ -398,6 +406,7 @@
       </div>
     </section>
 
+
     <!-- Social proof (from main landing) -->
     <section id="proof" class="deck-slide section testimonials" data-slide="12" data-nav-label="Proof">
       <div class="container reveal">
@@ -465,10 +474,12 @@
       </div>
     </section>
 
+
     <div class="deck-progress" id="deck-progress" aria-hidden="true">1 / 14</div>
     <nav class="deck-indicator" id="deck-indicator" aria-label="Slide indicator"></nav>
-  </main>
 
+
+  </main>
   <div class="deck-arrows" aria-label="Slide navigation">
     <button type="button" class="deck-arrow deck-arrow-prev" id="deck-prev" aria-label="Previous slide" title="Previous slide">
       <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
@@ -477,6 +488,7 @@
       <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
     </button>
   </div>
+
 
   <footer class="site-footer" id="site-footer">
     <div class="container footer-inner">
@@ -491,268 +503,9 @@
     </div>
   </footer>
 
+
   <script src="main.js"></script>
-  <script>
-(function() {
-  var DURATION = 450;
-  var deck = document.getElementById('pitch-deck');
-  if (!deck) return;
-
-  var slides = deck.querySelectorAll('.deck-slide');
-  var total = slides.length;
-  var current = 0;
-  var progressEl = document.getElementById('deck-progress');
-  var hintEl = document.getElementById('deck-hint');
-  var indicatorEl = document.getElementById('deck-indicator');
-  var indicatorBtns = [];
-  var prevBtn = document.getElementById('deck-prev');
-  var nextBtn = document.getElementById('deck-next');
-  var footer = document.getElementById('site-footer');
-  var transitioning = false;
-
-  document.body.classList.add('pitch-deck-active');
-  if (footer) footer.style.display = 'none';
-
-  function showHint() {
-    if (!hintEl) return;
-    if (current === 0) hintEl.textContent = 'Scroll, click, or press → to continue';
-    else if (current === total - 1) hintEl.textContent = '';
-    else hintEl.textContent = 'Scroll, click, or press → for next  ← for previous';
-  }
-
-  var arrowsEl = document.querySelector('.deck-arrows');
-  function getSlideLabel(slide, index) {
-    var label = slide && slide.getAttribute && slide.getAttribute('data-nav-label');
-    if (label) return label;
-    if (slide && slide.id) return slide.id;
-    return 'Slide ' + (index + 1);
-  }
-
-  function buildIndicator() {
-    if (!indicatorEl) return;
-    var list = document.createElement('div');
-    list.className = 'deck-indicator-list';
-
-    for (var i = 0; i < slides.length; i++) {
-      var label = getSlideLabel(slides[i], i);
-      var btn = document.createElement('button');
-      btn.type = 'button';
-      btn.className = 'deck-indicator-item';
-      btn.setAttribute('data-index', String(i));
-      btn.setAttribute('title', label);
-      btn.setAttribute('aria-label', 'Go to: ' + label);
-      btn.innerHTML = '<span class="deck-indicator-dot" aria-hidden="true"></span>' +
-        '<span class="deck-indicator-text">' + label + '</span>';
-      list.appendChild(btn);
-      indicatorBtns.push(btn);
-    }
-
-    indicatorEl.appendChild(list);
-
-    indicatorEl.addEventListener('click', function(e) {
-      var btn = e.target.closest('button[data-index]');
-      if (!btn) return;
-      if (transitioning) return;
-      e.preventDefault();
-      e.stopPropagation();
-      var idx = parseInt(btn.getAttribute('data-index') || '0', 10);
-      goToSlide(idx);
-    });
-  }
-
-  function updateProgress() {
-    if (progressEl) progressEl.textContent = (current + 1) + ' / ' + total;
-    showHint();
-    if (prevBtn) prevBtn.disabled = current === 0;
-    if (nextBtn) nextBtn.disabled = current === total - 1;
-    if (arrowsEl) {
-      var activeSlide = slides[current];
-      arrowsEl.classList.toggle('on-dark-slide', activeSlide && (activeSlide.classList.contains('section-dark') || activeSlide.classList.contains('cta-section')));
-    }
-    if (indicatorEl && indicatorBtns.length) {
-      var active = slides[current];
-      indicatorEl.classList.toggle('on-dark-slide', active && (active.classList.contains('section-dark') || active.classList.contains('cta-section')));
-      for (var i = 0; i < indicatorBtns.length; i++) {
-        var isActive = i === current;
-        indicatorBtns[i].classList.toggle('is-active', isActive);
-        if (isActive) indicatorBtns[i].setAttribute('aria-current', 'step');
-        else indicatorBtns[i].removeAttribute('aria-current');
-      }
-    }
-  }
-
-  function goToSlide(index) {
-    if (index < 0 || index >= total || index === current || transitioning) return;
-    transitioning = true;
-    var prev = slides[current];
-    var next = slides[index];
-    var goingForward = index > current;
-
-    prev.classList.add('leaving');
-    prev.classList.remove('active');
-    if (goingForward) {
-      prev.style.transform = 'translateX(-12%)';
-    } else {
-      prev.style.transform = 'translateX(12%)';
-    }
-
-    next.classList.add('entering');
-    next.style.transform = goingForward ? 'translateX(12%)' : 'translateX(-12%)';
-    next.style.opacity = '0';
-    next.style.zIndex = '2';
-
-    requestAnimationFrame(function() {
-      requestAnimationFrame(function() {
-        next.classList.add('active');
-        next.style.transform = 'translateX(0)';
-        next.style.opacity = '1';
-        next.querySelectorAll('.reveal').forEach(function(r) { r.classList.add('revealed'); });
-      });
-    });
-
-    setTimeout(function() {
-      prev.classList.remove('leaving');
-      prev.style.transform = '';
-      next.classList.remove('entering');
-      next.style.transform = '';
-      next.style.opacity = '';
-      next.style.zIndex = '';
-      current = index;
-      updateProgress();
-      transitioning = false;
-    }, DURATION);
-  }
-
-  function next() {
-    if (current < total - 1) goToSlide(current + 1);
-  }
-
-  function prev() {
-    if (current > 0) goToSlide(current - 1);
-  }
-
-  function goToById(id) {
-    for (var i = 0; i < slides.length; i++) {
-      if (slides[i].id === id) {
-        goToSlide(i);
-        return;
-      }
-    }
-  }
-
-  deck.addEventListener('click', function(e) {
-    if (transitioning) return;
-    var goto = e.target.closest('.deck-goto');
-    if (goto && goto.getAttribute('data-goto')) {
-      e.preventDefault();
-      goToById(goto.getAttribute('data-goto'));
-    }
-  });
-
-  document.querySelectorAll('a[href^="#"]').forEach(function(a) {
-    a.addEventListener('click', function(e) {
-      var id = (a.getAttribute('href') || '').slice(1);
-      if (!id) return;
-      for (var i = 0; i < slides.length; i++) {
-        if (slides[i].id === id) {
-          e.preventDefault();
-          goToById(id);
-          break;
-        }
-      }
-    });
-  });
-
-  if (prevBtn) prevBtn.addEventListener('click', function() { if (!transitioning) prev(); });
-  if (nextBtn) nextBtn.addEventListener('click', function() { if (!transitioning) next(); });
-
-  var touchStartX = 0;
-  deck.addEventListener('touchstart', function(e) {
-    if (e.touches.length === 1) touchStartX = e.touches[0].clientX;
-  }, { passive: true });
-  deck.addEventListener('touchend', function(e) {
-    if (transitioning || !e.changedTouches || e.changedTouches.length !== 1) return;
-    var delta = e.changedTouches[0].clientX - touchStartX;
-    var minSwipe = 60;
-    if (delta > minSwipe) prev();
-    else if (delta < -minSwipe) next();
-  }, { passive: true });
-
-  // Mouse wheel / trackpad: advance slides when at top/bottom.
-  // Allows normal scroll inside longer slides (e.g. Features) until you hit an edge.
-  var wheelAccum = 0;
-  var wheelLastTs = 0;
-  function onDeckWheel(e) {
-    if (transitioning) {
-      e.preventDefault();
-      return;
-    }
-
-    // Don't hijack scroll gestures over UI chrome (indicator/header).
-    var t = e.target;
-    if (t && t.closest) {
-      if (t.closest('.deck-indicator') || t.closest('.site-header')) return;
-    }
-
-    var activeSlide = slides[current];
-    if (!activeSlide) return;
-
-    var deltaY = e.deltaY;
-    // Normalize non-pixel wheel deltas (line/page modes).
-    if (e.deltaMode === 1) deltaY *= 16;
-    else if (e.deltaMode === 2) deltaY *= window.innerHeight;
-
-    var canScroll = (activeSlide.scrollHeight - activeSlide.clientHeight) > 8;
-    var atTop = activeSlide.scrollTop <= 2;
-    var atBottom = (activeSlide.scrollTop + activeSlide.clientHeight) >= (activeSlide.scrollHeight - 2);
-
-    // If the slide can scroll and we're not at an edge in the scroll direction, let it scroll normally.
-    if (canScroll) {
-      if (deltaY > 0 && !atBottom) return;
-      if (deltaY < 0 && !atTop) return;
-    }
-
-    // Accumulate small deltas so touchpads don't accidentally advance slides.
-    var now = Date.now();
-    if (now - wheelLastTs > 260) wheelAccum = 0;
-    wheelLastTs = now;
-    wheelAccum += deltaY;
-
-    // Prevent "dead" scroll (body is overflow-hidden in deck mode).
-    e.preventDefault();
-
-    var threshold = 80;
-    if (Math.abs(wheelAccum) < threshold) return;
-
-    if (wheelAccum > 0) next();
-    else prev();
-    wheelAccum = 0;
-  }
-  deck.addEventListener('wheel', onDeckWheel, { passive: false });
-
-  document.addEventListener('keydown', function(e) {
-    if (!deck.contains(document.activeElement) && document.body.classList.contains('pitch-deck-active')) {
-      if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'PageDown') {
-        e.preventDefault();
-        next();
-      } else if (e.key === 'ArrowLeft' || e.key === 'PageUp') {
-        e.preventDefault();
-        prev();
-      }
-    }
-  });
-
-  slides[0].classList.add('active');
-  buildIndicator();
-  updateProgress();
-})();
-
-    document.getElementById('apply-form').addEventListener('submit', function(e) {
-      e.preventDefault();
-      var data = new FormData(this);
-      window.location.href = 'mailto:headcoach@academy.vn?subject=Head%20Coach%20Application&body=' +
-        encodeURIComponent('Name: ' + (data.get('name') || '') + '\nBackground: ' + (data.get('background') || '') + '\nProfile: ' + (data.get('profile') || ''));
-    });
-  </script>
+  <script src="head-coach-pitch.js"></script>
 </body>
 </html>
+

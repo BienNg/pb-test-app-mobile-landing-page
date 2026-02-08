@@ -16,6 +16,21 @@ npx serve .
 
 Then visit **http://localhost:8080** (or the port shown).
 
+## Maintainable page sources
+
+The Head Coach page is generated from small partial files so it’s easier to edit.
+
+- **Source template**: `src/pages/head-coach-pitch/head-coach-pitch.html`
+- **Partials**: `src/pages/head-coach-pitch/partials/`
+- **Deck JS**: `src/pages/head-coach-pitch/head-coach-pitch.js`
+- **Generated output (deployed)**: `head-coach-pitch.html` + `head-coach-pitch.js`
+
+To rebuild after editing partials:
+
+```bash
+npm run build
+```
+
 ## What’s included
 
 - **Hero** — Headline, value prop, primary CTA (“Start Training Smarter”), secondary CTA (“Watch How It Works”), and app screenshot from `app-screenshots/student-home-1.png`.
