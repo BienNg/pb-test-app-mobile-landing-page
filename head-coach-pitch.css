@@ -1510,7 +1510,7 @@ body.pitch-deck-active .deck-arrows.on-dark-slide .deck-arrow {
 .approach-sticky-title {
   position: fixed;
   left: var(--space-8);
-  top: calc(80px + var(--space-8));
+  top: calc(80px + var(--space-24));
   z-index: 30;
   margin: 0;
   font-size: clamp(3rem, 7.6vw, 6.2rem);
@@ -1711,7 +1711,7 @@ body.pitch-deck-active .deck-arrows.on-dark-slide .deck-arrow {
 
   .approach-sticky-title {
     left: var(--space-4);
-    top: calc(72px + var(--space-6));
+    top: calc(72px + var(--space-16));
     font-size: clamp(2.3rem, 12vw, 3.5rem);
   }
 }

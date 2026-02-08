@@ -181,6 +181,237 @@
     panel.style.willChange = '';
   }
 
+  // Custom exit animation: Approach framework image curves down (no fade).
+  // Implemented as a "ghost" image appended to <body> so it's not affected by
+  // the outgoing slide's opacity/transform stacking context.
+  function computeApproachFrameworkArc(rect, viewportH) {
+    var centerY = rect.top + rect.height / 2;
+    var margin = rect.height / 2 + 160; // ensure fully off-screen
+    var remainingDown = (viewportH - centerY);
+    var remainingUp = centerY;
+
+    // Radius large enough to go fully off top (enter) and bottom (exit),
+    // with a slight preference for a wider arc.
+    var base = Math.max(remainingDown + margin, remainingUp + margin, rect.width * 0.9);
+    var radius = base * 1.45; // "increase radius" multiplier
+
+    // Circle center is to the right of the image center, at the same height as the image center.
+    // Expressed as transform-origin in element space.
+    var originX = (rect.width / 2) + radius;
+    var originY = rect.height / 2;
+
+    return { radius: radius, originX: originX, originY: originY };
+  }
+
+  function spawnApproachFrameworkExitGhost(slide) {
+    if (!slide || !slide.querySelector) return;
+    if (!isApproachSlide(slide)) return;
+
+    var img = slide.querySelector('.approach-step-visual img');
+    if (!img || !img.getBoundingClientRect) return;
+
+    var rect = img.getBoundingClientRect();
+    if (!rect || rect.width <= 0 || rect.height <= 0) return;
+
+    // Longer than the slide transition on purpose (ghost continues briefly).
+    var EXIT_DURATION = 1850;
+
+    var prefersReduced = false;
+    try {
+      prefersReduced = !!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
+    } catch (e) {}
+
+    var ghost = img.cloneNode(true);
+    ghost.setAttribute('aria-hidden', 'true');
+    ghost.className = (ghost.className ? (ghost.className + ' ') : '') + 'approach-framework-exit-ghost';
+
+    ghost.style.position = 'fixed';
+    ghost.style.left = rect.left + 'px';
+    ghost.style.top = rect.top + 'px';
+    ghost.style.width = rect.width + 'px';
+    ghost.style.height = rect.height + 'px';
+    ghost.style.maxWidth = 'none';
+    ghost.style.margin = '0';
+    ghost.style.zIndex = '9999';
+    ghost.style.pointerEvents = 'none';
+    ghost.style.opacity = '1';
+    ghost.style.transform = 'translate3d(0,0,0)';
+    ghost.style.transformOrigin = '50% 50%';
+    ghost.style.willChange = 'transform, filter';
+    ghost.style.backfaceVisibility = 'hidden';
+
+    var baseFilter = '';
+    try {
+      baseFilter = window.getComputedStyle(img).filter || '';
+      if (baseFilter === 'none') baseFilter = '';
+    } catch (e2) {}
+    ghost.style.filter = baseFilter || 'none';
+
+    document.body.appendChild(ghost);
+
+    // Hide the original so it doesn't fade/move with the slide.
+    img.style.visibility = 'hidden';
+    img.setAttribute('data-exit-hidden', '1');
+
+    function cleanupGhost() {
+      if (ghost && ghost.parentNode) ghost.parentNode.removeChild(ghost);
+    }
+
+    if (prefersReduced || !ghost.animate) {
+      setTimeout(cleanupGhost, EXIT_DURATION + 30);
+      return;
+    }
+
+    var viewportH = window.innerHeight || document.documentElement.clientHeight || 800;
+
+    // True circular path:
+    // - Circle center is at the image's current height (same Y as its center).
+    // - Circle center is to the right of the image.
+    // - We start at the "middle" of the arc (same Y as center), then rotate CCW to go down.
+    var arc = computeApproachFrameworkArc(rect, viewportH);
+    ghost.style.transformOrigin = arc.originX + 'px ' + arc.originY + 'px';
+
+    function withBlur(px) {
+      if (!px) return baseFilter || 'none';
+      var blur = 'blur(' + px + 'px)';
+      return baseFilter ? (baseFilter + ' ' + blur) : blur;
+    }
+
+    ghost.animate([
+      { transform: 'translate3d(0,0,0) rotate(0deg)', filter: withBlur(0) },
+      { transform: 'translate3d(0,0,0) rotate(-35deg)', filter: withBlur(8) },
+      { transform: 'translate3d(0,0,0) rotate(-68deg)', filter: withBlur(14) },
+      { transform: 'translate3d(0,0,0) rotate(-90deg)', filter: withBlur(0) }
+    ], {
+      duration: EXIT_DURATION,
+      easing: 'cubic-bezier(0.16, 1, 0.3, 1)',
+      fill: 'forwards'
+    });
+
+    setTimeout(cleanupGhost, EXIT_DURATION + 60);
+
+    // Let caller know how long to delay the next slide entrance.
+    return EXIT_DURATION;
+  }
+
+  // Custom enter animation: Approach framework image arcs in from top to center.
+  function measureApproachStepVisualFinalRect(slide) {
+    if (!slide || !slide.querySelector) return null;
+    if (!isApproachSlide(slide)) return null;
+    var panel = getApproachPanel(slide);
+    var img = slide.querySelector('.approach-step-visual img');
+    if (!img || !img.getBoundingClientRect) return null;
+
+    if (!panel || !panel.style) return img.getBoundingClientRect();
+
+    var prevTransition = panel.style.transition;
+    var prevTransform = panel.style.transform;
+    var prevOpacity = panel.style.opacity;
+
+    // Temporarily put the panel in its final state (no transition) to measure
+    // where the image should land, then restore.
+    panel.style.transition = 'none';
+    panel.style.transform = 'translateX(0px)';
+    panel.style.opacity = '1';
+
+    var rect = img.getBoundingClientRect();
+
+    panel.style.transition = prevTransition;
+    panel.style.transform = prevTransform;
+    panel.style.opacity = prevOpacity;
+
+    return rect;
+  }
+
+  function spawnApproachFrameworkEnterGhost(slide, rectOverride) {
+    if (!slide || !slide.querySelector) return;
+    if (!isApproachSlide(slide)) return;
+
+    var img = slide.querySelector('.approach-step-visual img');
+    if (!img || !img.getBoundingClientRect) return;
+
+    var rect = rectOverride || img.getBoundingClientRect();
+    if (!rect || rect.width <= 0 || rect.height <= 0) return;
+
+    var ENTER_DURATION = 1150;
+
+    var prefersReduced = false;
+    try {
+      prefersReduced = !!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
+    } catch (e) {}
+
+    // If the image is already hidden by an exit effect, don't fight it.
+    if (img.getAttribute('data-exit-hidden') === '1') return;
+
+    var ghost = img.cloneNode(true);
+    ghost.setAttribute('aria-hidden', 'true');
+    ghost.className = (ghost.className ? (ghost.className + ' ') : '') + 'approach-framework-enter-ghost';
+
+    ghost.style.position = 'fixed';
+    ghost.style.left = rect.left + 'px';
+    ghost.style.top = rect.top + 'px';
+    ghost.style.width = rect.width + 'px';
+    ghost.style.height = rect.height + 'px';
+    ghost.style.maxWidth = 'none';
+    ghost.style.margin = '0';
+    ghost.style.zIndex = '9999';
+    ghost.style.pointerEvents = 'none';
+    ghost.style.opacity = '1';
+    ghost.style.transform = 'translate3d(0,0,0)';
+    ghost.style.willChange = 'transform, filter';
+    ghost.style.backfaceVisibility = 'hidden';
+
+    var baseFilter = '';
+    try {
+      baseFilter = window.getComputedStyle(img).filter || '';
+      if (baseFilter === 'none') baseFilter = '';
+    } catch (e2) {}
+    ghost.style.filter = baseFilter || 'none';
+
+    var viewportH = window.innerHeight || document.documentElement.clientHeight || 800;
+    var arc = computeApproachFrameworkArc(rect, viewportH);
+    ghost.style.transformOrigin = arc.originX + 'px ' + arc.originY + 'px';
+
+    function withBlur(px) {
+      if (!px) return baseFilter || 'none';
+      var blur = 'blur(' + px + 'px)';
+      return baseFilter ? (baseFilter + ' ' + blur) : blur;
+    }
+
+    document.body.appendChild(ghost);
+
+    // Hide original until ghost lands, so we don't see a static duplicate.
+    img.style.visibility = 'hidden';
+    img.setAttribute('data-enter-hidden', '1');
+
+    function cleanup() {
+      if (ghost && ghost.parentNode) ghost.parentNode.removeChild(ghost);
+      if (img && img.getAttribute && img.getAttribute('data-enter-hidden') === '1') {
+        img.style.visibility = '';
+        img.removeAttribute('data-enter-hidden');
+      }
+    }
+
+    if (prefersReduced || !ghost.animate) {
+      cleanup();
+      return;
+    }
+
+    // Start above (clockwise rotation), finish at center (0deg).
+    ghost.animate([
+      { transform: 'translate3d(0,0,0) rotate(90deg)', filter: withBlur(0) },
+      { transform: 'translate3d(0,0,0) rotate(55deg)', filter: withBlur(14) },
+      { transform: 'translate3d(0,0,0) rotate(20deg)', filter: withBlur(8) },
+      { transform: 'translate3d(0,0,0) rotate(0deg)', filter: withBlur(0) }
+    ], {
+      duration: ENTER_DURATION,
+      easing: 'cubic-bezier(0.16, 1, 0.3, 1)',
+      fill: 'forwards'
+    });
+
+    setTimeout(cleanup, ENTER_DURATION + 60);
+  }
+
   function goToSlide(index) {
     if (index < 0 || index >= total || index === current || transitioning) return;
     transitioning = true;
@@ -188,97 +419,139 @@
     var next = slides[index];
     var goingForward = index > current;
 
+    function withExitDelay(run) {
+      var delay = 0;
+      try {
+        delay = spawnApproachFrameworkExitGhost(prev) || 0;
+      } catch (e) {
+        delay = 0;
+      }
+      // Start the next slide slightly before the arc fully completes
+      // to avoid a long "pause" where the slide feels empty.
+      // Keep only a short beat so the exit motion reads, but the next slide appears fast.
+      var wait = delay > 0 ? Math.min(250, delay) : 0;
+      if (wait > 0) setTimeout(run, wait);
+      else run();
+    }
+
     // Special transition for the Approach sequence:
     // Keep the big "OUR APPROACH" title sticky, and only slide the pillar panel.
     if (isApproachSlide(prev) && isApproachSlide(next)) {
-      var prevPanel = getApproachPanel(prev);
-      var nextPanel = getApproachPanel(next);
-      var dir = goingForward ? 1 : -1;
-      var DIST = 56;
+      withExitDelay(function() {
+        var prevPanel = getApproachPanel(prev);
+        var nextPanel = getApproachPanel(next);
+        var dir = goingForward ? 1 : -1;
+        var DIST = 56;
 
-      // Ensure both slides are visible during the panel animation.
-      prev.classList.add('active');
-      next.classList.add('active');
-      prev.style.zIndex = '1';
+        // Ensure both slides are visible during the panel animation.
+        prev.classList.add('active');
+        next.classList.add('active');
+        prev.style.zIndex = '1';
+        next.style.zIndex = '2';
+
+        // Make sure reveal elements are visible on the incoming slide.
+        next.querySelectorAll('.reveal').forEach(function(r) { r.classList.add('revealed'); });
+
+        if (nextPanel) {
+          nextPanel.style.willChange = 'transform, opacity';
+          nextPanel.style.transform = 'translateX(' + (dir * DIST) + 'px)';
+          nextPanel.style.opacity = '0';
+        }
+        if (prevPanel) {
+          prevPanel.style.willChange = 'transform, opacity';
+          prevPanel.style.transform = 'translateX(0px)';
+          prevPanel.style.opacity = '1';
+        }
+
+        // Enter arc should land at the panel's final position.
+        var finalRect = measureApproachStepVisualFinalRect(next);
+        spawnApproachFrameworkEnterGhost(next, finalRect);
+
+        requestAnimationFrame(function() {
+          requestAnimationFrame(function() {
+            if (nextPanel) nextPanel.style.transition = 'transform ' + DURATION + 'ms var(--ease-out), opacity ' + DURATION + 'ms var(--ease-out)';
+            if (prevPanel) prevPanel.style.transition = 'transform ' + DURATION + 'ms var(--ease-out), opacity ' + DURATION + 'ms var(--ease-out)';
+            if (nextPanel) {
+              nextPanel.style.transform = 'translateX(0px)';
+              nextPanel.style.opacity = '1';
+            }
+            if (prevPanel) {
+              prevPanel.style.transform = 'translateX(' + (-dir * DIST) + 'px)';
+              prevPanel.style.opacity = '0';
+            }
+          });
+        });
+
+        setTimeout(function() {
+          // Hide the previous slide after the panel finishes animating.
+          prev.classList.remove('active');
+          prev.style.zIndex = '';
+          next.style.zIndex = '';
+          clearPanelStyles(prevPanel);
+          clearPanelStyles(nextPanel);
+          // Restore any elements we hid for exit effects (so back-navigation works).
+          if (prev && prev.querySelectorAll) {
+            prev.querySelectorAll('[data-exit-hidden="1"]').forEach(function(el) {
+              el.style.visibility = '';
+              el.removeAttribute('data-exit-hidden');
+            });
+          }
+          current = index;
+          updateProgress();
+          transitioning = false;
+        }, DURATION);
+      });
+
+      return;
+    }
+
+    withExitDelay(function() {
+      prev.classList.add('leaving');
+      prev.classList.remove('active');
+      if (goingForward) {
+        prev.style.transform = 'translateX(-12%)';
+      } else {
+        prev.style.transform = 'translateX(12%)';
+      }
+
+      next.classList.add('entering');
+      next.style.transform = goingForward ? 'translateX(12%)' : 'translateX(-12%)';
+      next.style.opacity = '0';
       next.style.zIndex = '2';
-
-      // Make sure reveal elements are visible on the incoming slide.
-      next.querySelectorAll('.reveal').forEach(function(r) { r.classList.add('revealed'); });
-
-      if (nextPanel) {
-        nextPanel.style.willChange = 'transform, opacity';
-        nextPanel.style.transform = 'translateX(' + (dir * DIST) + 'px)';
-        nextPanel.style.opacity = '0';
-      }
-      if (prevPanel) {
-        prevPanel.style.willChange = 'transform, opacity';
-        prevPanel.style.transform = 'translateX(0px)';
-        prevPanel.style.opacity = '1';
-      }
 
       requestAnimationFrame(function() {
         requestAnimationFrame(function() {
-          if (nextPanel) nextPanel.style.transition = 'transform ' + DURATION + 'ms var(--ease-out), opacity ' + DURATION + 'ms var(--ease-out)';
-          if (prevPanel) prevPanel.style.transition = 'transform ' + DURATION + 'ms var(--ease-out), opacity ' + DURATION + 'ms var(--ease-out)';
-          if (nextPanel) {
-            nextPanel.style.transform = 'translateX(0px)';
-            nextPanel.style.opacity = '1';
-          }
-          if (prevPanel) {
-            prevPanel.style.transform = 'translateX(' + (-dir * DIST) + 'px)';
-            prevPanel.style.opacity = '0';
+          next.classList.add('active');
+          next.style.transform = 'translateX(0)';
+          next.style.opacity = '1';
+          next.querySelectorAll('.reveal').forEach(function(r) { r.classList.add('revealed'); });
+          // Skip the arc-in when coming directly from the slide before Approach.
+          // (Feels better to introduce the section without the special motion.)
+          if (!(prev && prev.id === 'problem' && isApproachSlide(next))) {
+            spawnApproachFrameworkEnterGhost(next);
           }
         });
       });
 
       setTimeout(function() {
-        // Hide the previous slide after the panel finishes animating.
-        prev.classList.remove('active');
-        prev.style.zIndex = '';
+        prev.classList.remove('leaving');
+        prev.style.transform = '';
+        // Restore any elements we hid for exit effects (so back-navigation works).
+        if (prev && prev.querySelectorAll) {
+          prev.querySelectorAll('[data-exit-hidden="1"]').forEach(function(el) {
+            el.style.visibility = '';
+            el.removeAttribute('data-exit-hidden');
+          });
+        }
+        next.classList.remove('entering');
+        next.style.transform = '';
+        next.style.opacity = '';
         next.style.zIndex = '';
-        clearPanelStyles(prevPanel);
-        clearPanelStyles(nextPanel);
         current = index;
         updateProgress();
         transitioning = false;
       }, DURATION);
-
-      return;
-    }
-
-    prev.classList.add('leaving');
-    prev.classList.remove('active');
-    if (goingForward) {
-      prev.style.transform = 'translateX(-12%)';
-    } else {
-      prev.style.transform = 'translateX(12%)';
-    }
-
-    next.classList.add('entering');
-    next.style.transform = goingForward ? 'translateX(12%)' : 'translateX(-12%)';
-    next.style.opacity = '0';
-    next.style.zIndex = '2';
-
-    requestAnimationFrame(function() {
-      requestAnimationFrame(function() {
-        next.classList.add('active');
-        next.style.transform = 'translateX(0)';
-        next.style.opacity = '1';
-        next.querySelectorAll('.reveal').forEach(function(r) { r.classList.add('revealed'); });
-      });
     });
-
-    setTimeout(function() {
-      prev.classList.remove('leaving');
-      prev.style.transform = '';
-      next.classList.remove('entering');
-      next.style.transform = '';
-      next.style.opacity = '';
-      next.style.zIndex = '';
-      current = index;
-      updateProgress();
-      transitioning = false;
-    }, DURATION);
   }
 
   function next() {
