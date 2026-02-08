@@ -1260,6 +1260,10 @@ body.pitch-deck-active .deck-arrows.on-dark-slide .deck-arrow {
 .pitch-deck #problem {
   position: relative;
   overflow: hidden;
+  --problem-danger: #ef4444;
+  --problem-danger-2: #fb7185;
+  --problem-danger-soft: rgba(239, 68, 68, 0.18);
+  --problem-danger-border: rgba(239, 68, 68, 0.28);
 }
 
 .pitch-deck #problem::before {
@@ -1267,7 +1271,7 @@ body.pitch-deck-active .deck-arrows.on-dark-slide .deck-arrow {
   position: absolute;
   inset: 0;
   background:
-    radial-gradient(ellipse 60% 50% at 18% 35%, rgba(82, 183, 136, 0.16) 0%, transparent 55%),
+    radial-gradient(ellipse 60% 50% at 18% 35%, rgba(239, 68, 68, 0.16) 0%, transparent 55%),
     radial-gradient(ellipse 40% 35% at 85% 65%, rgba(212, 163, 115, 0.12) 0%, transparent 60%);
   pointer-events: none;
   z-index: 0;
@@ -1299,6 +1303,32 @@ body.pitch-deck-active .deck-arrows.on-dark-slide .deck-arrow {
   align-content: start;
 }
 
+.pitch-deck #problem .problem-head {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 0 0 var(--space-3);
+}
+
+.pitch-deck #problem .problem-icon {
+  flex: 0 0 auto;
+  width: 40px;
+  height: 40px;
+  border-radius: 14px;
+  display: grid;
+  place-items: center;
+  color: var(--problem-danger);
+  background: linear-gradient(135deg, rgba(239, 68, 68, 0.16) 0%, rgba(251, 113, 133, 0.10) 100%);
+  border: 1px solid rgba(239, 68, 68, 0.22);
+  box-shadow: 0 10px 26px rgba(239, 68, 68, 0.10);
+}
+
+.pitch-deck #problem .problem-icon svg {
+  width: 22px;
+  height: 22px;
+  display: block;
+}
+
 .pitch-deck #problem .problem-card {
   position: relative;
   padding: var(--space-8);
@@ -1322,7 +1352,7 @@ body.pitch-deck-active .deck-arrows.on-dark-slide .deck-arrow {
   top: 0;
   height: 3px;
   width: 100%;
-  background: linear-gradient(90deg, rgba(45, 106, 79, 0.0) 0%, rgba(45, 106, 79, 0.35) 35%, rgba(82, 183, 136, 0.55) 70%, rgba(45, 106, 79, 0.0) 100%);
+  background: linear-gradient(90deg, rgba(239, 68, 68, 0.0) 0%, rgba(239, 68, 68, 0.38) 35%, rgba(251, 113, 133, 0.62) 70%, rgba(239, 68, 68, 0.0) 100%);
   opacity: 0.9;
 }
 
@@ -1351,12 +1381,12 @@ body.pitch-deck-active .deck-arrows.on-dark-slide .deck-arrow {
   font-weight: 800;
   letter-spacing: 0.06em;
   color: var(--charcoal);
-  background: linear-gradient(135deg, rgba(82, 183, 136, 0.32) 0%, rgba(45, 106, 79, 0.18) 100%);
-  border: 1px solid rgba(45, 106, 79, 0.14);
+  background: linear-gradient(135deg, rgba(251, 113, 133, 0.30) 0%, rgba(239, 68, 68, 0.14) 100%);
+  border: 1px solid rgba(239, 68, 68, 0.18);
 }
 
 .pitch-deck #problem .problem-title {
-  margin: 0 3.1rem var(--space-3) 0;
+  margin: 0 3.1rem 0 0;
   font-size: 1rem;
   font-weight: 800;
   letter-spacing: -0.02em;
@@ -1381,8 +1411,8 @@ body.pitch-deck-active .deck-arrows.on-dark-slide .deck-arrow {
   border-radius: 22px;
   padding: var(--space-12);
   background:
-    radial-gradient(ellipse 120% 80% at 20% 10%, rgba(82, 183, 136, 0.25) 0%, transparent 55%),
-    radial-gradient(ellipse 80% 60% at 90% 80%, rgba(45, 106, 79, 0.22) 0%, transparent 60%),
+    radial-gradient(ellipse 120% 80% at 20% 10%, rgba(239, 68, 68, 0.26) 0%, transparent 58%),
+    radial-gradient(ellipse 80% 60% at 90% 80%, rgba(251, 113, 133, 0.18) 0%, transparent 62%),
     linear-gradient(180deg, #151513 0%, #10100f 100%);
   border: 1px solid rgba(255, 255, 255, 0.12);
   box-shadow: 0 24px 70px rgba(0, 0, 0, 0.25);
@@ -1414,7 +1444,7 @@ body.pitch-deck-active .deck-arrows.on-dark-slide .deck-arrow {
   font-weight: 800;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: var(--court-line);
+  color: var(--problem-danger-2);
 }
 
 .pitch-deck #problem .problem-impact-title {
@@ -1450,7 +1480,7 @@ body.pitch-deck-active .deck-arrows.on-dark-slide .deck-arrow {
   letter-spacing: -0.01em;
   color: rgba(255, 255, 255, 0.94);
   background: rgba(255, 255, 255, 0.08);
-  border: 1px solid rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(239, 68, 68, 0.24);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
 }
