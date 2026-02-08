@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 240" fill="none">
+  <defs>
+    <linearGradient id="a" x1="36" y1="24" x2="324" y2="216" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#52b788" stop-opacity="0.95"/>
+      <stop offset="1" stop-color="#fb7185" stop-opacity="0.55"/>
+    </linearGradient>
+  </defs>
+  <rect x="26" y="22" width="308" height="196" rx="22" stroke="rgba(255,255,255,0.28)" stroke-width="2"/>
+  <path d="M74 78h144" stroke="rgba(255,255,255,0.72)" stroke-width="3" stroke-linecap="round"/>
+  <path d="M74 112h204" stroke="rgba(255,255,255,0.56)" stroke-width="3" stroke-linecap="round"/>
+  <path d="M74 146h176" stroke="rgba(255,255,255,0.56)" stroke-width="3" stroke-linecap="round"/>
+  <path d="M74 180h124" stroke="rgba(255,255,255,0.42)" stroke-width="3" stroke-linecap="round"/>
+
+  <!-- Check badge -->
+  <path d="M270 70c0-18.225 14.775-33 33-33s33 14.775 33 33-14.775 33-33 33-33-14.775-33-33Z" stroke="url(#a)" stroke-width="3"/>
+  <path d="M292 70.5l8.5 8.5L316 63.5" stroke="#52b788" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+
+  <!-- Framework nodes -->
+  <path d="M88 48h110" stroke="rgba(255,255,255,0.35)" stroke-width="2" stroke-linecap="round"/>
+  <circle cx="86" cy="48" r="6" stroke="#52b788" stroke-width="3"/>
+  <circle cx="202" cy="48" r="6" stroke="#52b788" stroke-width="3"/>
+</svg>

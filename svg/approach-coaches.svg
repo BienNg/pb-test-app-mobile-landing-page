@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 240" fill="none">
+  <defs>
+    <linearGradient id="b" x1="40" y1="28" x2="320" y2="212" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#52b788" stop-opacity="0.9"/>
+      <stop offset="1" stop-color="#52b788" stop-opacity="0.25"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Connection ring -->
+  <path d="M64 120c0-64 52-96 116-96s116 32 116 96-52 96-116 96S64 184 64 120Z" stroke="rgba(255,255,255,0.22)" stroke-width="2"/>
+
+  <!-- Center person -->
+  <circle cx="180" cy="88" r="18" stroke="#52b788" stroke-width="4"/>
+  <path d="M142 162c10-22 28-34 38-34s28 12 38 34" stroke="url(#b)" stroke-width="4" stroke-linecap="round"/>
+
+  <!-- Left person -->
+  <circle cx="112" cy="104" r="14" stroke="rgba(255,255,255,0.72)" stroke-width="3"/>
+  <path d="M84 168c8-18 20-28 28-28s20 10 28 28" stroke="rgba(255,255,255,0.56)" stroke-width="3" stroke-linecap="round"/>
+
+  <!-- Right person -->
+  <circle cx="248" cy="104" r="14" stroke="rgba(255,255,255,0.72)" stroke-width="3"/>
+  <path d="M220 168c8-18 20-28 28-28s20 10 28 28" stroke="rgba(255,255,255,0.56)" stroke-width="3" stroke-linecap="round"/>
+
+  <!-- Alignment links -->
+  <path d="M126 118l38 16" stroke="#52b788" stroke-width="3" stroke-linecap="round"/>
+  <path d="M234 118l-38 16" stroke="#52b788" stroke-width="3" stroke-linecap="round"/>
+</svg>

@@ -16,6 +16,7 @@
   var prevBtn = document.getElementById('deck-prev');
   var nextBtn = document.getElementById('deck-next');
   var footer = document.getElementById('site-footer');
+  var approachTitleEl = document.getElementById('approach-sticky-title');
   var transitioning = false;
 
   document.body.classList.add('pitch-deck-active');
@@ -145,6 +146,11 @@
       var activeSlide = slides[current];
       arrowsEl.classList.toggle('on-dark-slide', activeSlide && (activeSlide.classList.contains('section-dark') || activeSlide.classList.contains('cta-section')));
     }
+    if (approachTitleEl) {
+      var a = slides[current];
+      var isApproach = !!(a && a.id && a.id.indexOf('approach') === 0);
+      approachTitleEl.classList.toggle('is-visible', isApproach);
+    }
     if (indicatorEl && indicatorBtns.length) {
       var active = slides[current];
       indicatorEl.classList.toggle('on-dark-slide', active && (active.classList.contains('section-dark') || active.classList.contains('cta-section')));
@@ -158,12 +164,87 @@
     }
   }
 
+  function isApproachSlide(slide) {
+    return !!(slide && slide.id && slide.id.indexOf('approach') === 0);
+  }
+
+  function getApproachPanel(slide) {
+    if (!slide || !slide.querySelector) return null;
+    return slide.querySelector('.approach-panel');
+  }
+
+  function clearPanelStyles(panel) {
+    if (!panel || !panel.style) return;
+    panel.style.transition = '';
+    panel.style.transform = '';
+    panel.style.opacity = '';
+    panel.style.willChange = '';
+  }
+
   function goToSlide(index) {
     if (index < 0 || index >= total || index === current || transitioning) return;
     transitioning = true;
     var prev = slides[current];
     var next = slides[index];
     var goingForward = index > current;
+
+    // Special transition for the Approach sequence:
+    // Keep the big "OUR APPROACH" title sticky, and only slide the pillar panel.
+    if (isApproachSlide(prev) && isApproachSlide(next)) {
+      var prevPanel = getApproachPanel(prev);
+      var nextPanel = getApproachPanel(next);
+      var dir = goingForward ? 1 : -1;
+      var DIST = 56;
+
+      // Ensure both slides are visible during the panel animation.
+      prev.classList.add('active');
+      next.classList.add('active');
+      prev.style.zIndex = '1';
+      next.style.zIndex = '2';
+
+      // Make sure reveal elements are visible on the incoming slide.
+      next.querySelectorAll('.reveal').forEach(function(r) { r.classList.add('revealed'); });
+
+      if (nextPanel) {
+        nextPanel.style.willChange = 'transform, opacity';
+        nextPanel.style.transform = 'translateX(' + (dir * DIST) + 'px)';
+        nextPanel.style.opacity = '0';
+      }
+      if (prevPanel) {
+        prevPanel.style.willChange = 'transform, opacity';
+        prevPanel.style.transform = 'translateX(0px)';
+        prevPanel.style.opacity = '1';
+      }
+
+      requestAnimationFrame(function() {
+        requestAnimationFrame(function() {
+          if (nextPanel) nextPanel.style.transition = 'transform ' + DURATION + 'ms var(--ease-out), opacity ' + DURATION + 'ms var(--ease-out)';
+          if (prevPanel) prevPanel.style.transition = 'transform ' + DURATION + 'ms var(--ease-out), opacity ' + DURATION + 'ms var(--ease-out)';
+          if (nextPanel) {
+            nextPanel.style.transform = 'translateX(0px)';
+            nextPanel.style.opacity = '1';
+          }
+          if (prevPanel) {
+            prevPanel.style.transform = 'translateX(' + (-dir * DIST) + 'px)';
+            prevPanel.style.opacity = '0';
+          }
+        });
+      });
+
+      setTimeout(function() {
+        // Hide the previous slide after the panel finishes animating.
+        prev.classList.remove('active');
+        prev.style.zIndex = '';
+        next.style.zIndex = '';
+        clearPanelStyles(prevPanel);
+        clearPanelStyles(nextPanel);
+        current = index;
+        updateProgress();
+        transitioning = false;
+      }, DURATION);
+
+      return;
+    }
 
     prev.classList.add('leaving');
     prev.classList.remove('active');

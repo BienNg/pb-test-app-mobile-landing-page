@@ -1507,6 +1507,30 @@ body.pitch-deck-active .deck-arrows.on-dark-slide .deck-arrow {
 }
 
 /* ---------- Slide: Our Approach (split steps) ---------- */
+.approach-sticky-title {
+  position: fixed;
+  left: var(--space-8);
+  top: calc(80px + var(--space-8));
+  z-index: 30;
+  margin: 0;
+  font-size: clamp(3rem, 7.6vw, 6.2rem);
+  letter-spacing: -0.04em;
+  line-height: 0.95;
+  font-weight: 900;
+  color: rgba(255, 255, 255, 0.16);
+  text-transform: uppercase;
+  pointer-events: none;
+  user-select: none;
+  opacity: 0;
+  transform: translateY(-6px);
+  transition: opacity var(--duration-fast), transform var(--duration-fast);
+}
+
+.approach-sticky-title.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
 .pitch-deck .slide-layout-approach-step {
   position: relative;
   max-width: 1100px;
@@ -1517,19 +1541,14 @@ body.pitch-deck-active .deck-arrows.on-dark-slide .deck-arrow {
   min-height: min(720px, calc(100vh - 220px));
 }
 
-.pitch-deck .slide-layout-approach-step .approach-big {
-  position: absolute;
-  left: 0;
-  top: 0;
-  margin: 0;
-  font-size: clamp(3rem, 7.6vw, 6.2rem);
-  letter-spacing: -0.04em;
-  line-height: 0.95;
-  font-weight: 900;
-  color: rgba(255, 255, 255, 0.16);
-  text-transform: uppercase;
-  pointer-events: none;
-  user-select: none;
+.pitch-deck .slide-layout-approach-step .approach-panel {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: 1.05fr 0.95fr;
+  gap: var(--space-16);
+  align-items: center;
+  width: 100%;
 }
 
 .pitch-deck .slide-layout-approach-step .approach-step-content {
@@ -1537,6 +1556,21 @@ body.pitch-deck-active .deck-arrows.on-dark-slide .deck-arrow {
   z-index: 1;
   max-width: 46rem;
   padding-top: var(--space-12);
+}
+
+.pitch-deck .slide-layout-approach-step .approach-step-visual {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  place-items: center;
+}
+
+.pitch-deck .slide-layout-approach-step .approach-step-visual img {
+  width: min(440px, 42vw);
+  height: auto;
+  display: block;
+  opacity: 0.98;
+  filter: drop-shadow(0 28px 60px rgba(0, 0, 0, 0.35));
 }
 
 .pitch-deck .slide-layout-approach-step .approach-kicker {
@@ -1565,6 +1599,13 @@ body.pitch-deck-active .deck-arrows.on-dark-slide .deck-arrow {
   min-height: min(760px, calc(100vh - 220px));
   display: grid;
   align-content: center;
+  gap: var(--space-10);
+}
+
+.pitch-deck .slide-layout-approach-overview .approach-panel {
+  position: relative;
+  z-index: 1;
+  display: grid;
   gap: var(--space-10);
 }
 
@@ -1618,6 +1659,19 @@ body.pitch-deck-active .deck-arrows.on-dark-slide .deck-arrow {
   text-wrap: balance;
 }
 
+.pitch-deck .slide-layout-approach-overview .approach-overview-icon {
+  margin-top: var(--space-6);
+  opacity: 0.95;
+}
+
+.pitch-deck .slide-layout-approach-overview .approach-overview-icon img {
+  width: 100%;
+  max-width: 220px;
+  height: auto;
+  display: block;
+  filter: drop-shadow(0 18px 40px rgba(0, 0, 0, 0.35));
+}
+
 @media (max-width: 768px) {
   .pitch-deck .slide-layout-approach-overview {
     min-height: auto;
@@ -1642,13 +1696,23 @@ body.pitch-deck-active .deck-arrows.on-dark-slide .deck-arrow {
     padding-bottom: var(--space-12);
   }
 
-  .pitch-deck .slide-layout-approach-step .approach-big {
-    font-size: clamp(2.3rem, 12vw, 3.5rem);
-    top: -8px;
-  }
-
   .pitch-deck .slide-layout-approach-step .approach-step-content {
     padding-top: var(--space-16);
+  }
+
+  .pitch-deck .slide-layout-approach-step .approach-panel {
+    grid-template-columns: 1fr;
+    gap: var(--space-8);
+  }
+
+  .pitch-deck .slide-layout-approach-step .approach-step-visual img {
+    width: min(420px, 92vw);
+  }
+
+  .approach-sticky-title {
+    left: var(--space-4);
+    top: calc(72px + var(--space-6));
+    font-size: clamp(2.3rem, 12vw, 3.5rem);
   }
 }
 

@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 240" fill="none">
+  <defs>
+    <linearGradient id="c" x1="64" y1="40" x2="296" y2="200" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#52b788" stop-opacity="0.95"/>
+      <stop offset="1" stop-color="#52b788" stop-opacity="0.25"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Phone -->
+  <rect x="64" y="28" width="156" height="184" rx="26" stroke="rgba(255,255,255,0.28)" stroke-width="3"/>
+  <path d="M98 62h88" stroke="rgba(255,255,255,0.55)" stroke-width="3" stroke-linecap="round"/>
+  <path d="M98 92h110" stroke="rgba(255,255,255,0.42)" stroke-width="3" stroke-linecap="round"/>
+  <path d="M98 122h96" stroke="rgba(255,255,255,0.42)" stroke-width="3" stroke-linecap="round"/>
+  <path d="M98 152h72" stroke="rgba(255,255,255,0.28)" stroke-width="3" stroke-linecap="round"/>
+  <circle cx="142" cy="186" r="6" stroke="rgba(255,255,255,0.35)" stroke-width="3"/>
+
+  <!-- Gear (simplified) -->
+  <circle cx="270" cy="120" r="34" stroke="url(#c)" stroke-width="4"/>
+  <circle cx="270" cy="120" r="12" stroke="rgba(255,255,255,0.65)" stroke-width="4"/>
+  <path d="M270 76v-16M270 180v-16M226 120h-16M330 120h-16" stroke="#52b788" stroke-width="4" stroke-linecap="round"/>
+  <path d="M238 88l-12-12M314 164l-12-12M302 88l12-12M238 164l12-12" stroke="#52b788" stroke-width="4" stroke-linecap="round"/>
+</svg>

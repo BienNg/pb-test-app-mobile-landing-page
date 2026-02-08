@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 240" fill="none">
+  <defs>
+    <linearGradient id="d" x1="40" y1="44" x2="320" y2="196" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#fb7185" stop-opacity="0.95"/>
+      <stop offset="1" stop-color="#52b788" stop-opacity="0.35"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Megaphone -->
+  <path d="M78 132v-48c0-6 4-10 10-10h24l96-32c10-3 20 4 20 14v128c0 10-10 17-20 14l-96-32H88c-6 0-10-4-10-10Z" stroke="rgba(255,255,255,0.28)" stroke-width="3" stroke-linejoin="round"/>
+  <path d="M112 74v92" stroke="rgba(255,255,255,0.42)" stroke-width="3" stroke-linecap="round"/>
+  <path d="M78 116h34" stroke="rgba(255,255,255,0.42)" stroke-width="3" stroke-linecap="round"/>
+
+  <!-- Sound waves -->
+  <path d="M250 92c16 18 16 38 0 56" stroke="url(#d)" stroke-width="4" stroke-linecap="round"/>
+  <path d="M276 74c26 28 26 64 0 92" stroke="url(#d)" stroke-width="4" stroke-linecap="round"/>
+  <path d="M304 56c36 42 36 86 0 128" stroke="rgba(251,113,133,0.45)" stroke-width="4" stroke-linecap="round"/>
+
+  <!-- Lightning bolt (aggressive) -->
+  <path d="M168 98h34l-20 32h26l-48 60 16-42h-28l20-50Z" stroke="#fb7185" stroke-width="4" stroke-linejoin="round"/>
+</svg>
