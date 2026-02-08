@@ -17,6 +17,7 @@
   var nextBtn = document.getElementById('deck-next');
   var footer = document.getElementById('site-footer');
   var approachTitleEl = document.getElementById('approach-sticky-title');
+  var bottomBarEl = document.querySelector('.deck-bottom-bar');
   var transitioning = false;
 
   document.body.classList.add('pitch-deck-active');
@@ -144,7 +145,13 @@
     if (nextBtn) nextBtn.disabled = current === total - 1;
     if (arrowsEl) {
       var activeSlide = slides[current];
-      arrowsEl.classList.toggle('on-dark-slide', activeSlide && (activeSlide.classList.contains('section-dark') || activeSlide.classList.contains('cta-section')));
+      var isDark = activeSlide && (activeSlide.classList.contains('section-dark') || activeSlide.classList.contains('cta-section'));
+      arrowsEl.classList.toggle('on-dark-slide', isDark);
+    }
+    if (bottomBarEl) {
+      var activeSlide2 = slides[current];
+      var isDark2 = activeSlide2 && (activeSlide2.classList.contains('section-dark') || activeSlide2.classList.contains('cta-section'));
+      bottomBarEl.classList.toggle('on-dark-slide', isDark2);
     }
     if (approachTitleEl) {
       var a = slides[current];

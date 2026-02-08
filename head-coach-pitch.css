@@ -1964,7 +1964,13 @@ body.pitch-deck-active .deck-arrows.on-dark-slide .deck-arrow {
   color: var(--white);
 }
 
-/* ---------- Deck progress & hint (refined) ---------- */
+/* ---------- Deck bottom bar (progress + swipe hint) ---------- */
+
+/* Desktop: wrapper is invisible, progress positions itself as before */
+.deck-bottom-bar {
+  display: contents;
+}
+
 .pitch-deck .deck-progress {
   bottom: var(--space-6);
   right: var(--space-6);
@@ -1983,6 +1989,139 @@ body.pitch-deck-active .deck-arrows.on-dark-slide .deck-arrow {
   color: var(--gray-300);
   background: rgba(0, 0, 0, 0.4);
   backdrop-filter: blur(8px);
+}
+
+/* Swipe hint: hidden on desktop */
+.deck-swipe-hint {
+  display: none;
+}
+
+.deck-bottom-divider {
+  display: none;
+}
+
+/* Phone: unified bottom bar with swipe hint + counter */
+@media (max-width: 768px) {
+  .deck-bottom-bar {
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    position: fixed;
+    bottom: var(--space-4);
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 100;
+    padding: 6px 14px;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.82);
+    border: 1px solid rgba(28, 28, 26, 0.08);
+    box-shadow: 0 6px 24px rgba(0, 0, 0, 0.10);
+    backdrop-filter: blur(12px) saturate(150%);
+    -webkit-backdrop-filter: blur(12px) saturate(150%);
+    pointer-events: none;
+    white-space: nowrap;
+  }
+
+  /* On dark slides, switch to dark glass */
+  .deck-bottom-bar.on-dark-slide {
+    background: rgba(0, 0, 0, 0.45);
+    border-color: rgba(255, 255, 255, 0.14);
+    box-shadow: 0 6px 24px rgba(0, 0, 0, 0.25);
+  }
+
+  /* Progress counter: reset fixed positioning, it's inside the bar now */
+  .pitch-deck .deck-progress,
+  .deck-progress {
+    position: static !important;
+    background: none !important;
+    box-shadow: none !important;
+    border: none !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    padding: 0 !important;
+    border-radius: 0 !important;
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    color: var(--gray-500);
+  }
+
+  .deck-bottom-bar.on-dark-slide .deck-progress {
+    color: var(--gray-300) !important;
+  }
+
+  /* Divider dot */
+  .deck-bottom-divider {
+    display: inline;
+    font-size: 0.75rem;
+    color: var(--gray-300);
+    line-height: 1;
+  }
+
+  .deck-bottom-bar.on-dark-slide .deck-bottom-divider {
+    color: rgba(255, 255, 255, 0.25);
+  }
+
+  /* Swipe hint */
+  .deck-swipe-hint {
+    display: flex !important;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .swipe-text {
+    font-size: 0.68rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--gray-400);
+    line-height: 1;
+  }
+
+  .deck-bottom-bar.on-dark-slide .swipe-text {
+    color: rgba(255, 255, 255, 0.45);
+  }
+
+  /* CSS-only chevron arrows */
+  .swipe-arrow {
+    display: inline-block;
+    width: 6px;
+    height: 6px;
+    border-left: 1.5px solid var(--gray-400);
+    border-bottom: 1.5px solid var(--gray-400);
+  }
+
+  .deck-bottom-bar.on-dark-slide .swipe-arrow {
+    border-color: rgba(255, 255, 255, 0.40);
+  }
+
+  .swipe-arrow--left {
+    transform: rotate(45deg);
+    animation: swipe-nudge-left 2.2s ease-in-out infinite;
+  }
+
+  .swipe-arrow--right {
+    transform: rotate(-135deg);
+    animation: swipe-nudge-right 2.2s ease-in-out infinite;
+  }
+
+  @keyframes swipe-nudge-left {
+    0%, 100% { transform: rotate(45deg) translate(0, 0); opacity: 0.6; }
+    50% { transform: rotate(45deg) translate(-3px, 3px); opacity: 1; }
+  }
+
+  @keyframes swipe-nudge-right {
+    0%, 100% { transform: rotate(-135deg) translate(0, 0); opacity: 0.6; }
+    50% { transform: rotate(-135deg) translate(3px, -3px); opacity: 1; }
+  }
+
+  /* Safe area support */
+  @supports (bottom: env(safe-area-inset-bottom)) {
+    .deck-bottom-bar {
+      bottom: max(var(--space-4), env(safe-area-inset-bottom));
+    }
+  }
 }
 
 .pitch-deck .deck-hint {
@@ -2745,4 +2884,708 @@ body.pitch-deck-active .deck-arrows.on-dark-slide .deck-arrow {
 .pitch-deck .split-role-card:hover {
   transform: translateY(-2px);
   box-shadow: 0 12px 28px rgba(0, 0, 0, 0.15);
+}
+
+/* ============================================================
+   PHONE NO-SCROLL OPTIMIZATION
+   Ensures every slide fits within the viewport on phone screens.
+   Uses dvh (dynamic viewport height) for mobile browser chrome.
+   ============================================================ */
+
+@media (max-width: 768px) {
+
+  /* --- Lock every slide to viewport, prevent scrolling --- */
+  .pitch-deck .deck-slide {
+    overflow: hidden !important;
+    -webkit-overflow-scrolling: auto !important;
+  }
+
+  .pitch-deck .deck-slide.section {
+    min-height: 100dvh;
+    padding-top: max(56px, 7.5dvh);
+    padding-bottom: max(8px, 1dvh);
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* --- Compact global typography --- */
+  .pitch-deck .deck-slide .section-title {
+    font-size: clamp(1.15rem, 4.8vw, 1.5rem);
+    margin-bottom: min(0.5rem, 1dvh);
+    line-height: 1.15;
+  }
+
+  .pitch-deck .deck-slide .section-lead {
+    font-size: clamp(0.78rem, 2.4vw, 0.92rem);
+    line-height: 1.4;
+    margin-bottom: min(0.4rem, 0.8dvh);
+  }
+
+  .pitch-deck .deck-slide .section-label {
+    font-size: 0.6rem;
+    margin-bottom: min(0.35rem, 0.6dvh);
+  }
+
+  .pitch-deck .deck-slide .slide-note {
+    font-size: 0.75rem;
+    margin-top: min(0.5rem, 1dvh);
+  }
+
+  .pitch-deck .deck-slide .slide-emphasis {
+    font-size: 0.82rem;
+    margin-top: min(0.4rem, 0.8dvh);
+  }
+
+  /* ---- Slide 0: Hero ---- */
+  .pitch-deck .hero.hero-recruit {
+    padding-top: max(56px, 7dvh) !important;
+    padding-bottom: min(1rem, 1.5dvh) !important;
+  }
+
+  .pitch-deck .hero.hero-recruit .hero-headline {
+    font-size: clamp(1.2rem, 5.5vw, 1.55rem) !important;
+    margin-bottom: min(0.5rem, 1dvh) !important;
+    line-height: 1.18;
+  }
+
+  .pitch-deck .hero.hero-recruit .hero-subheadline {
+    font-size: clamp(0.78rem, 2.6vw, 0.9rem) !important;
+    line-height: 1.4;
+    margin-bottom: min(0.75rem, 1.5dvh) !important;
+  }
+
+  .pitch-deck .hero.hero-recruit .hero-label {
+    font-size: 0.58rem;
+    margin-bottom: min(0.25rem, 0.5dvh);
+  }
+
+  .pitch-deck .recruit-hero {
+    gap: min(0.75rem, 1.5dvh);
+  }
+
+  .pitch-deck .recruit-hero-ctas {
+    margin-bottom: min(0.5rem, 1dvh);
+    gap: var(--space-2);
+  }
+
+  .pitch-deck .recruit-hero-ctas .btn {
+    min-height: 38px;
+    padding: 0.5rem 0.85rem;
+    font-size: 0.85rem;
+  }
+
+  .pitch-deck .hero-fineprint {
+    font-size: 0.75rem;
+    line-height: 1.35;
+    padding-left: var(--space-3);
+  }
+
+  /* Snapshot card: compact */
+  .pitch-deck .snapshot-card {
+    padding: min(0.75rem, 1.5dvh) 0.75rem;
+  }
+
+  .pitch-deck .snapshot-top {
+    margin-bottom: min(0.4rem, 0.8dvh);
+    gap: var(--space-2);
+  }
+
+  .pitch-deck .snapshot-logo {
+    width: 28px;
+    height: 28px;
+    padding: 3px;
+    border-radius: 8px;
+  }
+
+  .pitch-deck .snapshot-brand-name {
+    font-size: 0.82rem;
+  }
+
+  .pitch-deck .snapshot-brand-sub {
+    font-size: 0.68rem;
+  }
+
+  .pitch-deck .snapshot-badge {
+    padding: 0.25rem 0.4rem;
+    font-size: 0.58rem;
+  }
+
+  .pitch-deck .snapshot-facts {
+    gap: min(0.35rem, 0.7dvh);
+  }
+
+  .pitch-deck .snapshot-fact {
+    padding-top: min(0.35rem, 0.7dvh);
+    gap: var(--space-2);
+    grid-template-columns: 60px 1fr;
+  }
+
+  .pitch-deck .snapshot-fact dt {
+    font-size: 0.58rem;
+  }
+
+  .pitch-deck .snapshot-fact dd {
+    font-size: 0.72rem;
+    line-height: 1.3;
+  }
+
+  /* ---- Slide 1: Vision ---- */
+  .pitch-deck #vision .slide-layout-split {
+    gap: min(0.75rem, 1.5dvh);
+  }
+
+  .pitch-deck #vision .chart-title {
+    font-size: 0.6rem;
+    margin-bottom: min(0.35rem, 0.7dvh);
+  }
+
+  .pitch-deck #vision .chart-bar-wrap {
+    gap: min(0.4rem, 0.8dvh);
+  }
+
+  .pitch-deck #vision .chart-bar-label {
+    font-size: 0.68rem;
+    flex: 0 0 72px;
+  }
+
+  .pitch-deck #vision .chart-bar-track {
+    height: 20px;
+  }
+
+  .pitch-deck #vision .chart-note-text {
+    font-size: 0.78rem;
+    padding: 0.4rem 0.55rem;
+  }
+
+  .pitch-deck #vision .chart-bar-row.is-key-stat {
+    padding: 0.35rem 0.5rem;
+    border-radius: 10px;
+  }
+
+  /* ---- Slide 2: Problem ---- */
+  .pitch-deck #problem .problem-layout {
+    gap: min(0.6rem, 1.2dvh);
+    margin-top: min(0.4rem, 0.8dvh);
+  }
+
+  /* Force 2×2 grid so cards don't stack into a tall single column */
+  .pitch-deck #problem .problem-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: min(0.4rem, 0.8dvh);
+  }
+
+  .pitch-deck #problem .problem-card {
+    padding: min(0.6rem, 1.2dvh) 0.5rem;
+    border-radius: 10px;
+  }
+
+  .pitch-deck #problem .problem-num {
+    width: 24px;
+    height: 24px;
+    top: 0.3rem;
+    right: 0.3rem;
+    font-size: 0.58rem;
+    border-radius: 7px;
+  }
+
+  .pitch-deck #problem .problem-title {
+    font-size: 0.72rem;
+    margin: 0 1.8rem 0 0;
+  }
+
+  .pitch-deck #problem .problem-body {
+    font-size: 0.65rem;
+    line-height: 1.3;
+  }
+
+  .pitch-deck #problem .problem-icon {
+    width: 24px;
+    height: 24px;
+    border-radius: 7px;
+  }
+
+  .pitch-deck #problem .problem-icon svg {
+    width: 14px;
+    height: 14px;
+  }
+
+  .pitch-deck #problem .problem-head {
+    gap: 4px;
+    margin-bottom: 0.15rem;
+  }
+
+  .pitch-deck #problem .problem-impact {
+    padding: min(0.75rem, 1.5dvh) 0.6rem;
+    border-radius: 12px;
+  }
+
+  .pitch-deck #problem .problem-impact-kicker {
+    font-size: 0.58rem;
+    margin-bottom: 0.2rem;
+  }
+
+  .pitch-deck #problem .problem-impact-title {
+    font-size: clamp(0.88rem, 2.8vw, 1rem);
+    margin-bottom: 0.25rem;
+    line-height: 1.2;
+  }
+
+  .pitch-deck #problem .problem-impact-sub {
+    font-size: 0.72rem;
+    margin-bottom: 0.35rem;
+    line-height: 1.35;
+  }
+
+  .pitch-deck #problem .problem-chips {
+    gap: 4px;
+  }
+
+  .pitch-deck #problem .problem-chip {
+    padding: 0.2rem 0.4rem;
+    font-size: 0.62rem;
+  }
+
+  /* ---- Slides 3-6: Approach steps (keep side-by-side) ---- */
+  .pitch-deck .slide-layout-approach-step {
+    min-height: 0;
+  }
+
+  .pitch-deck .slide-layout-approach-step .approach-panel {
+    grid-template-columns: 1.1fr 0.9fr !important;
+    gap: var(--space-4);
+  }
+
+  .pitch-deck .slide-layout-approach-step .approach-step-content {
+    padding-top: min(1rem, 2dvh);
+  }
+
+  .pitch-deck .slide-layout-approach-step .approach-step-title {
+    font-size: clamp(1.3rem, 5.5vw, 1.8rem);
+  }
+
+  .pitch-deck .slide-layout-approach-step .approach-kicker {
+    font-size: 0.62rem;
+    margin-bottom: 0.25rem;
+  }
+
+  .pitch-deck .slide-layout-approach-step .approach-step-visual img {
+    width: min(200px, 38vw);
+  }
+
+  .approach-sticky-title {
+    font-size: clamp(1.8rem, 9vw, 2.8rem) !important;
+    top: calc(56px + var(--space-8)) !important;
+  }
+
+  /* ---- Slide 7: Approach overview ---- */
+  .pitch-deck .slide-layout-approach-overview {
+    min-height: 0;
+    gap: min(0.75rem, 1.5dvh);
+  }
+
+  .pitch-deck .slide-layout-approach-overview .approach-overview-head {
+    padding-top: min(0.75rem, 1.5dvh);
+  }
+
+  .pitch-deck .slide-layout-approach-overview .approach-overview-title {
+    font-size: clamp(1.2rem, 4.5vw, 1.6rem);
+  }
+
+  .pitch-deck .slide-layout-approach-overview .approach-panel {
+    gap: min(0.75rem, 1.5dvh);
+  }
+
+  /* Force 2×2 grid for overview cards */
+  .pitch-deck .slide-layout-approach-overview .approach-overview-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: min(0.4rem, 0.8dvh);
+  }
+
+  .pitch-deck .slide-layout-approach-overview .approach-overview-card {
+    padding: min(0.6rem, 1.2dvh) 0.5rem;
+    border-radius: 10px;
+  }
+
+  .pitch-deck .slide-layout-approach-overview .approach-overview-card-kicker {
+    font-size: 0.55rem;
+    margin-bottom: 0.1rem;
+  }
+
+  .pitch-deck .slide-layout-approach-overview .approach-overview-card-title {
+    font-size: 0.75rem;
+    line-height: 1.2;
+  }
+
+  .pitch-deck .slide-layout-approach-overview .approach-overview-icon {
+    margin-top: min(0.35rem, 0.7dvh);
+  }
+
+  .pitch-deck .slide-layout-approach-overview .approach-overview-icon img {
+    max-width: 90px;
+  }
+
+  /* ---- Slide 8: Role ---- */
+  .pitch-deck #role .role-inner {
+    gap: min(0.75rem, 1.5dvh);
+    padding: 0 var(--space-4);
+  }
+
+  .pitch-deck #role .role-headline {
+    font-size: clamp(1.3rem, 5.5vw, 1.8rem);
+    margin-bottom: min(0.3rem, 0.6dvh);
+  }
+
+  .pitch-deck #role .role-sub {
+    font-size: 0.78rem;
+  }
+
+  /* Force 2×2 grid so cards don't stack */
+  .pitch-deck #role .role-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: min(0.4rem, 0.8dvh);
+  }
+
+  .pitch-deck #role .role-card {
+    min-height: 0 !important;
+    padding: min(0.7rem, 1.2dvh) 0.6rem;
+    border-radius: 12px;
+  }
+
+  .pitch-deck #role .role-card-num {
+    font-size: 2.5rem;
+  }
+
+  .pitch-deck #role .role-card-title {
+    font-size: 0.78rem;
+    margin-bottom: 0.1rem;
+  }
+
+  .pitch-deck #role .role-card-desc {
+    font-size: 0.65rem;
+    line-height: 1.35;
+  }
+
+  .pitch-deck #role .role-callout {
+    padding: min(0.35rem, 0.7dvh) 0.6rem;
+    font-size: 0.68rem;
+  }
+
+  /* ---- Slide 9: App ---- */
+  .pitch-deck #app .app-inner {
+    gap: min(0.6rem, 1.2dvh);
+    padding: 0 var(--space-4);
+  }
+
+  .pitch-deck #app .app-headline {
+    font-size: clamp(1.2rem, 5vw, 1.6rem);
+    margin-bottom: min(0.25rem, 0.5dvh);
+  }
+
+  .pitch-deck #app .app-sub {
+    font-size: 0.75rem;
+  }
+
+  /* Keep flow inline but compact */
+  .pitch-deck #app .app-flow {
+    gap: 0;
+    flex-wrap: nowrap;
+  }
+
+  .pitch-deck #app .app-flow-line {
+    display: block !important;
+    min-width: 20px;
+    max-width: 40px;
+  }
+
+  .pitch-deck #app .app-flow-icon {
+    width: 32px;
+    height: 32px;
+    border-radius: 9px;
+  }
+
+  .pitch-deck #app .app-flow-icon svg {
+    width: 16px;
+    height: 16px;
+  }
+
+  .pitch-deck #app .app-flow-label {
+    font-size: 0.58rem;
+  }
+
+  .pitch-deck #app .app-flow-step {
+    gap: 0.15rem;
+  }
+
+  /* Force 2×2 grid for capability cards */
+  .pitch-deck #app .app-caps {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: min(0.4rem, 0.8dvh);
+  }
+
+  .pitch-deck #app .app-cap {
+    padding: min(0.55rem, 1dvh) 0.5rem;
+    border-radius: 10px;
+    gap: min(0.2rem, 0.4dvh);
+  }
+
+  .pitch-deck #app .app-cap-icon {
+    width: 26px;
+    height: 26px;
+    border-radius: 7px;
+  }
+
+  .pitch-deck #app .app-cap-icon svg {
+    width: 14px;
+    height: 14px;
+  }
+
+  .pitch-deck #app .app-cap-title {
+    font-size: 0.72rem;
+  }
+
+  .pitch-deck #app .app-cap-desc {
+    font-size: 0.6rem;
+    line-height: 1.3;
+  }
+
+  .pitch-deck #app .app-callout {
+    padding: min(0.3rem, 0.6dvh) 0.5rem;
+    font-size: 0.68rem;
+  }
+
+  /* Hide handwritten annotation on mobile (saves vertical space) */
+  .pitch-deck #app .app-handwritten-note,
+  .pitch-deck #app .app-note-arrow {
+    display: none !important;
+  }
+
+  /* Let the annotated wrapper collapse so it doesn't reserve extra height */
+  .pitch-deck #app .app-cap-annotated {
+    display: contents;
+  }
+
+  /* ---- Slides 10-12: Feature slides (keep horizontal split) ---- */
+  .pitch-deck .deck-slide.fslide .fslide-inner {
+    flex-direction: row !important;
+    text-align: left;
+    align-items: center;
+    gap: var(--space-4);
+    padding: max(56px, 7dvh) var(--space-4) min(1rem, 2dvh) !important;
+    margin: 0 auto;
+  }
+
+  .pitch-deck .fslide-copy {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .pitch-deck .fslide-num-row {
+    justify-content: flex-start;
+    margin-bottom: min(0.3rem, 0.6dvh);
+  }
+
+  .pitch-deck .fslide-title {
+    font-size: clamp(1.2rem, 4.5vw, 1.6rem) !important;
+    margin-bottom: min(0.3rem, 0.6dvh);
+  }
+
+  .pitch-deck .fslide-desc {
+    font-size: 0.8rem;
+    line-height: 1.4;
+  }
+
+  .pitch-deck .fslide-device {
+    flex: 0 0 auto;
+  }
+
+  .pitch-deck .fslide-phone {
+    width: min(160px, 32vw);
+  }
+
+  .pitch-deck .fslide-badge {
+    width: 28px;
+    height: 28px;
+    font-size: 0.65rem;
+    border-radius: 8px;
+  }
+
+  .pitch-deck .fslide-step-of {
+    font-size: 0.65rem;
+  }
+
+  /* ---- Slide 13: Coach view ---- */
+  .pitch-deck .deck-slide.authority .authority-screens {
+    gap: min(0.5rem, 1dvh);
+    margin-top: min(0.6rem, 1.2dvh);
+    flex-wrap: nowrap;
+  }
+
+  .pitch-deck .deck-slide.authority .authority-card {
+    width: min(160px, 38vw);
+  }
+
+  .pitch-deck .authority-card span {
+    padding: 0.3rem;
+    font-size: 0.68rem;
+  }
+
+  /* ---- Slide 14: Candidate ---- */
+  .pitch-deck .slide-layout-attributes {
+    gap: min(0.3rem, 0.6dvh) 0.3rem;
+    margin-top: min(0.6rem, 1.2dvh);
+  }
+
+  .pitch-deck .attr-tag {
+    padding: min(0.35rem, 0.7dvh) 0.5rem;
+    font-size: 0.75rem;
+  }
+
+  /* ---- Slide 15: Not vs Is ---- */
+  .pitch-deck .slide-layout-not-vs-is {
+    gap: min(0.4rem, 0.8dvh);
+    margin-top: min(0.6rem, 1.2dvh);
+  }
+
+  .pitch-deck .not-vs-col {
+    padding: min(0.6rem, 1.2dvh) 0.5rem;
+  }
+
+  .pitch-deck .not-vs-col h3 {
+    font-size: 0.68rem;
+    margin-bottom: 0.2rem;
+  }
+
+  .pitch-deck .not-vs-col li {
+    font-size: 0.78rem;
+    margin-bottom: 0.1rem;
+  }
+
+  /* ---- Slide 16: Support ---- */
+  .pitch-deck .slide-layout-split-roles {
+    gap: min(0.6rem, 1.2dvh);
+    margin-top: min(0.6rem, 1.2dvh);
+  }
+
+  .pitch-deck .split-role-card {
+    padding: min(0.6rem, 1.2dvh) 0.5rem;
+  }
+
+  .pitch-deck .split-role-card h3 {
+    font-size: 0.68rem;
+    margin-bottom: 0.2rem;
+  }
+
+  .pitch-deck .split-role-card li {
+    font-size: 0.78rem;
+    margin-bottom: 0.1rem;
+  }
+
+  /* ---- Slide 17: CTA ---- */
+  .pitch-deck .deck-slide.cta-section {
+    padding-top: max(56px, 7dvh) !important;
+    padding-bottom: min(1rem, 2dvh) !important;
+  }
+
+  .pitch-deck .cta-title {
+    font-size: clamp(1.4rem, 5.5vw, 1.8rem) !important;
+    margin-bottom: min(0.3rem, 0.6dvh);
+  }
+
+  .pitch-deck .cta-sub {
+    font-size: 0.85rem;
+    margin-bottom: min(0.25rem, 0.5dvh);
+  }
+
+  .pitch-deck .cta-quote {
+    font-size: clamp(0.88rem, 2.8vw, 1.05rem) !important;
+    margin: min(0.25rem, 0.5dvh) 0;
+    line-height: 1.35;
+  }
+
+  .pitch-deck .cta-form-wrap {
+    margin-bottom: min(0.5rem, 1dvh) !important;
+  }
+
+  .pitch-deck .cta-form input {
+    padding: 0.45rem 0.65rem;
+    margin-bottom: min(0.25rem, 0.5dvh);
+    font-size: 0.85rem;
+    min-height: 0 !important;
+  }
+
+  .pitch-deck .cta-form label {
+    font-size: 0.62rem;
+    margin-bottom: 0.1rem;
+  }
+
+  .pitch-deck .cta-form .btn-primary {
+    padding: 0.55rem 0.85rem;
+    font-size: 0.85rem;
+    margin-top: 0.1rem;
+    min-height: 0 !important;
+  }
+
+  .pitch-deck .cta-reassurance {
+    font-size: 0.68rem;
+  }
+
+  .pitch-deck .cta-email {
+    font-size: 0.72rem;
+  }
+
+  /* ---- Deck navigation: hide floating arrows on phone ---- */
+  .deck-arrows {
+    display: none !important;
+  }
+}
+
+/* --- Extra-compact: very short screens (iPhone SE, etc.) --- */
+@media (max-width: 768px) and (max-height: 700px) {
+
+  /* Hero: hide supplementary snapshot card & fineprint */
+  .pitch-deck .recruit-hero-aside {
+    display: none;
+  }
+
+  .pitch-deck .hero-fineprint {
+    display: none;
+  }
+
+  /* Problem: hide body text, titles are enough */
+  .pitch-deck #problem .problem-body {
+    display: none;
+  }
+
+  /* Role & App: hide footer callouts to save space */
+  .pitch-deck #role .role-footer {
+    display: none;
+  }
+
+  .pitch-deck #app .app-footer {
+    display: none;
+  }
+
+  .pitch-deck #app .app-flow {
+    display: none;
+  }
+
+  /* Feature slides: hide description */
+  .pitch-deck .fslide-desc {
+    display: none;
+  }
+
+  /* Approach overview: hide icon illustrations */
+  .pitch-deck .slide-layout-approach-overview .approach-overview-icon {
+    display: none;
+  }
+
+  /* Vision: hide chart annotation */
+  .pitch-deck #vision .chart-note {
+    display: none;
+  }
+
+  /* Vision: tighter emphasis */
+  .pitch-deck #vision .slide-emphasis {
+    font-size: 0.75rem;
+  }
 }
