@@ -506,6 +506,252 @@ a {
   .feature-device { width: 280px; }
 }
 
+/* ========== Feature Slides — Full-viewport individual slides ========== */
+.fslide {
+  position: relative;
+  background: linear-gradient(168deg, #fafafa 0%, #f2f1ef 60%, #f5f4f1 100%);
+  overflow: hidden;
+}
+
+.fslide--warm {
+  background: linear-gradient(168deg, #fafafa 0%, #f6f2ee 60%, #f5f3ef 100%);
+}
+
+.fslide--blue {
+  background: linear-gradient(168deg, #fafafa 0%, #f0f2f5 60%, #f3f4f6 100%);
+}
+
+/* Background orbs */
+.fslide-bg {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.fslide-orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(100px);
+}
+
+.fslide-orb--1 {
+  width: 420px;
+  height: 420px;
+  background: rgba(45, 106, 79, 0.06);
+  top: -120px;
+  right: -80px;
+}
+
+.fslide-orb--2 {
+  width: 320px;
+  height: 320px;
+  background: rgba(212, 163, 115, 0.07);
+  bottom: -80px;
+  left: -60px;
+}
+
+.fslide--warm .fslide-orb--1 {
+  background: rgba(212, 163, 115, 0.08);
+}
+
+.fslide--warm .fslide-orb--2 {
+  background: rgba(45, 106, 79, 0.05);
+}
+
+.fslide--blue .fslide-orb--1 {
+  background: rgba(100, 140, 180, 0.07);
+}
+
+.fslide--blue .fslide-orb--2 {
+  background: rgba(82, 183, 136, 0.05);
+}
+
+/* Inner layout — centered split */
+.fslide-inner {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  width: 100%;
+  max-width: 1040px;
+  padding: var(--space-8) var(--space-6);
+  gap: var(--space-8);
+}
+
+/* Copy block */
+.fslide-copy {
+  max-width: 480px;
+}
+
+.fslide-num-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-3);
+  margin-bottom: var(--space-5);
+}
+
+.fslide-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  border-radius: 12px;
+  background: var(--accent-soft);
+  color: var(--accent);
+  font-size: 0.8125rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  flex-shrink: 0;
+}
+
+.fslide-badge--warm {
+  background: var(--warm-soft);
+  color: #b8874a;
+}
+
+.fslide-badge--blue {
+  background: rgba(100, 140, 180, 0.12);
+  color: #5a8ab5;
+}
+
+.fslide-step-of {
+  font-size: 0.8125rem;
+  font-weight: 500;
+  color: var(--gray-300);
+  letter-spacing: 0.04em;
+}
+
+.fslide-title {
+  font-family: var(--font-sans);
+  font-size: clamp(2rem, 5vw, 3.25rem);
+  font-weight: 700;
+  letter-spacing: -0.035em;
+  line-height: 1.08;
+  color: var(--charcoal);
+  margin: 0 0 var(--space-4);
+}
+
+.fslide-title em {
+  font-family: var(--font-serif);
+  font-style: italic;
+  color: var(--accent);
+}
+
+.fslide--warm .fslide-title em {
+  color: #b8874a;
+}
+
+.fslide--blue .fslide-title em {
+  color: #5a8ab5;
+}
+
+.fslide-desc {
+  font-size: 1.0625rem;
+  color: var(--gray-500);
+  line-height: 1.65;
+  margin: 0 auto;
+  max-width: 420px;
+}
+
+/* Device / phone screenshot */
+.fslide-device {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.fslide-phone {
+  position: relative;
+  width: min(240px, 55vw);
+}
+
+.fslide-phone img {
+  width: 100%;
+  display: block;
+  border-radius: 20px;
+  box-shadow:
+    0 20px 60px rgba(28, 28, 26, 0.12),
+    0 6px 16px rgba(28, 28, 26, 0.06),
+    0 0 0 1px rgba(0, 0, 0, 0.04);
+  transition: transform var(--duration-slow) var(--ease-out);
+}
+
+.fslide-phone::before {
+  content: "";
+  position: absolute;
+  inset: -12px;
+  border-radius: 28px;
+  background: linear-gradient(135deg, rgba(45, 106, 79, 0.06) 0%, rgba(212, 163, 115, 0.04) 100%);
+  z-index: -1;
+}
+
+.fslide--warm .fslide-phone::before {
+  background: linear-gradient(135deg, rgba(212, 163, 115, 0.08) 0%, rgba(45, 106, 79, 0.03) 100%);
+}
+
+.fslide--blue .fslide-phone::before {
+  background: linear-gradient(135deg, rgba(100, 140, 180, 0.07) 0%, rgba(82, 183, 136, 0.03) 100%);
+}
+
+/* ---- Tablet+ (768px) — horizontal split layout ---- */
+@media (min-width: 768px) {
+  .fslide-inner {
+    flex-direction: row;
+    text-align: left;
+    gap: var(--space-12);
+    padding: 0 var(--space-8);
+  }
+
+  .fslide-num-row {
+    justify-content: flex-start;
+  }
+
+  .fslide-copy {
+    flex: 1;
+    min-width: 0;
+    max-width: 460px;
+  }
+
+  .fslide-desc {
+    margin: 0;
+  }
+
+  .fslide-device {
+    flex: 0 0 auto;
+  }
+
+  .fslide-phone {
+    width: 260px;
+  }
+}
+
+/* ---- Desktop (1024px+) ---- */
+@media (min-width: 1024px) {
+  .fslide-inner {
+    gap: var(--space-16);
+    padding: 0 var(--space-12);
+  }
+
+  .fslide-phone {
+    width: 290px;
+  }
+
+  .fslide-title {
+    font-size: clamp(2.5rem, 4.5vw, 3.5rem);
+  }
+
+  .fslide-desc {
+    font-size: 1.125rem;
+    max-width: 440px;
+  }
+}
+
 /* ========== Authority (coach views) ========== */
 .authority {
   padding: var(--space-24) var(--space-6);
@@ -1096,6 +1342,10 @@ body.pitch-deck-active .site-footer {
   padding-bottom: 80px;
   align-items: flex-start;
   justify-content: flex-start;
+}
+
+.pitch-deck .deck-slide.fslide {
+  padding: 0;
 }
 
 .pitch-deck .deck-slide.testimonials {
@@ -2074,6 +2324,11 @@ body.pitch-deck-active .site-footer {
 
   .pitch-deck .deck-slide.features .feature-device {
     width: min(260px, 85vw);
+  }
+
+  .pitch-deck .deck-slide.fslide .fslide-inner {
+    padding: 0 var(--space-4);
+    gap: var(--space-6);
   }
 
   .pitch-deck .deck-slide.authority .authority-screens {
