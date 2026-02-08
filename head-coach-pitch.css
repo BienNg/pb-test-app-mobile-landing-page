@@ -1174,6 +1174,613 @@
   }
 }
 
+/* =============================================
+   APP SLIDE — award-winning editorial redesign
+   ============================================= */
+.pitch-deck #app {
+  background: #0e100f;
+  overflow: hidden;
+}
+
+/* Override generic dark ::before */
+.pitch-deck #app::before {
+  display: none;
+}
+
+/* ---------- Background ---------- */
+.pitch-deck #app .app-bg {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.pitch-deck #app .app-bg-grain {
+  position: absolute;
+  inset: 0;
+  opacity: 0.025;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 180px 180px;
+}
+
+.pitch-deck #app .app-bg-glow {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(110px);
+}
+
+.pitch-deck #app .app-bg-glow--1 {
+  width: 600px;
+  height: 600px;
+  top: -20%;
+  right: -10%;
+  background: radial-gradient(circle, rgba(82, 183, 136, 0.30) 0%, transparent 70%);
+  animation: app-glow-drift 14s ease-in-out infinite alternate;
+}
+
+.pitch-deck #app .app-bg-glow--2 {
+  width: 450px;
+  height: 450px;
+  bottom: -15%;
+  left: -8%;
+  background: radial-gradient(circle, rgba(45, 106, 79, 0.22) 0%, transparent 70%);
+  animation: app-glow-drift 11s ease-in-out 2s infinite alternate-reverse;
+}
+
+@keyframes app-glow-drift {
+  0%   { transform: translate(0, 0) scale(1); }
+  100% { transform: translate(-25px, 15px) scale(1.06); }
+}
+
+/* ---------- Inner layout ---------- */
+.pitch-deck #app .app-inner {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 var(--space-8);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-12);
+}
+
+/* ---------- Header ---------- */
+.pitch-deck #app .app-header {
+  text-align: center;
+  max-width: 700px;
+}
+
+.pitch-deck #app .section-label {
+  color: var(--court-line);
+  margin-bottom: var(--space-4);
+}
+
+.pitch-deck #app .app-headline {
+  font-family: var(--font-sans);
+  font-weight: 700;
+  font-size: clamp(2.2rem, 6vw, 3.8rem);
+  letter-spacing: -0.04em;
+  line-height: 1.08;
+  margin: 0 0 var(--space-6);
+  color: var(--white);
+}
+
+.pitch-deck #app .app-headline em {
+  font-family: var(--pitch-serif);
+  font-weight: 400;
+  font-style: italic;
+  background: linear-gradient(135deg, var(--court-line) 0%, #8fe0b8 50%, #a8d8ea 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.pitch-deck #app .app-sub {
+  font-size: clamp(0.95rem, 1.6vw, 1.12rem);
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.50);
+  margin: 0;
+  line-height: 1.5;
+}
+
+/* ---------- Flow diagram ---------- */
+.pitch-deck #app .app-flow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0;
+  width: 100%;
+  max-width: 640px;
+}
+
+.pitch-deck #app .app-flow-step {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-3);
+  flex: 0 0 auto;
+}
+
+.pitch-deck #app .app-flow-icon {
+  width: 56px;
+  height: 56px;
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.10);
+  color: rgba(255, 255, 255, 0.7);
+  transition: transform 0.4s var(--ease-out), border-color 0.3s, background 0.3s, box-shadow 0.3s;
+}
+
+.pitch-deck #app .app-flow-icon svg {
+  width: 24px;
+  height: 24px;
+}
+
+.pitch-deck #app .app-flow-icon--accent {
+  background: linear-gradient(135deg, rgba(45, 106, 79, 0.35) 0%, rgba(82, 183, 136, 0.20) 100%);
+  border-color: rgba(82, 183, 136, 0.30);
+  color: var(--court-line);
+  box-shadow: 0 12px 30px rgba(82, 183, 136, 0.15);
+}
+
+.pitch-deck #app .app-flow-label {
+  font-size: 0.8125rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.50);
+}
+
+.pitch-deck #app .app-flow-step--center .app-flow-label {
+  color: var(--court-line);
+}
+
+/* Animated connecting line */
+.pitch-deck #app .app-flow-line {
+  flex: 1;
+  height: 1px;
+  min-width: 40px;
+  max-width: 100px;
+  background: rgba(255, 255, 255, 0.10);
+  position: relative;
+  overflow: hidden;
+}
+
+.pitch-deck #app .app-flow-pulse {
+  position: absolute;
+  top: -1px;
+  left: -30%;
+  width: 30%;
+  height: 3px;
+  border-radius: 2px;
+  background: linear-gradient(90deg, transparent 0%, var(--court-line) 50%, transparent 100%);
+  animation: app-pulse-flow 2.4s ease-in-out infinite;
+}
+
+.pitch-deck #app .app-flow-line:nth-of-type(2) .app-flow-pulse {
+  animation-delay: 0.8s;
+}
+
+@keyframes app-pulse-flow {
+  0%   { left: -30%; opacity: 0; }
+  20%  { opacity: 1; }
+  80%  { opacity: 1; }
+  100% { left: 100%; opacity: 0; }
+}
+
+/* Hover: flow icons lift */
+@media (hover: hover) {
+  .pitch-deck #app .app-flow-step:hover .app-flow-icon {
+    transform: translateY(-4px);
+    border-color: rgba(82, 183, 136, 0.40);
+    background: rgba(255, 255, 255, 0.10);
+    box-shadow: 0 16px 36px rgba(82, 183, 136, 0.12);
+  }
+}
+
+/* ---------- Capability cards ---------- */
+.pitch-deck #app .app-caps {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--space-5);
+  width: 100%;
+  perspective: 800px;
+}
+
+.pitch-deck #app .app-cap {
+  position: relative;
+  border-radius: 20px;
+  padding: var(--space-7) var(--space-6);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  cursor: default;
+  outline: none;
+  overflow: hidden;
+
+  background: linear-gradient(168deg, rgba(255, 255, 255, 0.07) 0%, rgba(255, 255, 255, 0.015) 100%);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow:
+    0 24px 48px rgba(0, 0, 0, 0.30),
+    inset 0 1px 0 rgba(255, 255, 255, 0.06);
+  backdrop-filter: blur(14px) saturate(130%);
+  -webkit-backdrop-filter: blur(14px) saturate(130%);
+
+  transition:
+    transform 0.45s var(--ease-out),
+    box-shadow 0.45s var(--ease-out),
+    border-color 0.3s;
+  will-change: transform;
+  transform-style: preserve-3d;
+}
+
+/* Gradient border on hover */
+.pitch-deck #app .app-cap::before {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(135deg, transparent 0%, transparent 100%);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+  transition: background 0.5s var(--ease-out);
+}
+
+.pitch-deck #app .app-cap-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, rgba(82, 183, 136, 0.18) 0%, rgba(82, 183, 136, 0.06) 100%);
+  color: var(--court-line);
+  transition: transform 0.4s var(--ease-out), box-shadow 0.3s;
+}
+
+.pitch-deck #app .app-cap-icon svg {
+  width: 22px;
+  height: 22px;
+}
+
+.pitch-deck #app .app-cap-title {
+  font-family: var(--font-sans);
+  font-size: clamp(1rem, 1.5vw, 1.12rem);
+  font-weight: 700;
+  letter-spacing: -0.015em;
+  color: var(--white);
+  margin: 0;
+  line-height: 1.2;
+}
+
+.pitch-deck #app .app-cap-desc {
+  font-size: clamp(0.8rem, 1vw, 0.88rem);
+  font-weight: 400;
+  line-height: 1.55;
+  color: rgba(255, 255, 255, 0.42);
+  margin: 0;
+  transition: color 0.35s;
+}
+
+/* Hover: 3D tilt + glow */
+@media (hover: hover) {
+  .pitch-deck #app .app-cap:hover {
+    transform: translateY(-8px) rotateX(2deg) rotateY(-2deg) scale(1.015);
+    border-color: rgba(82, 183, 136, 0.30);
+    box-shadow:
+      0 36px 70px rgba(0, 0, 0, 0.40),
+      0 0 32px rgba(82, 183, 136, 0.08),
+      inset 0 1px 0 rgba(255, 255, 255, 0.10);
+  }
+
+  .pitch-deck #app .app-cap:hover::before {
+    background: linear-gradient(
+      135deg,
+      rgba(82, 183, 136, 0.50) 0%,
+      rgba(82, 183, 136, 0.0) 55%,
+      rgba(168, 216, 234, 0.30) 100%
+    );
+  }
+
+  .pitch-deck #app .app-cap:hover .app-cap-icon {
+    transform: translateY(-2px) scale(1.06);
+    box-shadow: 0 10px 24px rgba(82, 183, 136, 0.2);
+  }
+
+  .pitch-deck #app .app-cap:hover .app-cap-desc {
+    color: rgba(255, 255, 255, 0.65);
+  }
+
+  /* Unique tilt per card */
+  .pitch-deck #app .app-cap:nth-child(2):hover {
+    transform: translateY(-8px) rotateX(2deg) rotateY(1.5deg) scale(1.015);
+  }
+  .pitch-deck #app .app-cap:nth-child(3):hover {
+    transform: translateY(-8px) rotateX(-1.5deg) rotateY(-2deg) scale(1.015);
+  }
+  .pitch-deck #app .app-cap:nth-child(4):hover {
+    transform: translateY(-8px) rotateX(2.5deg) rotateY(2deg) scale(1.015);
+  }
+}
+
+.pitch-deck #app .app-cap:active {
+  transform: translateY(-3px) scale(0.985);
+  transition-duration: 0.12s;
+}
+
+.pitch-deck #app .app-cap:focus-visible {
+  border-color: var(--court-line);
+  box-shadow:
+    0 36px 70px rgba(0, 0, 0, 0.35),
+    0 0 0 3px rgba(82, 183, 136, 0.30);
+}
+
+/* ---------- Staggered entrance ---------- */
+.pitch-deck #app .app-cap {
+  opacity: 0;
+  transform: translateY(36px) scale(0.93);
+  filter: blur(5px);
+}
+
+.pitch-deck #app.active .app-inner.reveal.revealed .app-cap {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  filter: blur(0);
+  transition:
+    opacity 0.7s var(--ease-out),
+    transform 0.7s var(--ease-out),
+    filter 0.7s var(--ease-out),
+    box-shadow 0.45s var(--ease-out),
+    border-color 0.3s;
+}
+
+.pitch-deck #app.active .app-inner.reveal.revealed .app-cap:nth-child(1) { transition-delay: 0.14s; }
+.pitch-deck #app.active .app-inner.reveal.revealed .app-cap:nth-child(2) { transition-delay: 0.22s; }
+.pitch-deck #app.active .app-inner.reveal.revealed .app-cap:nth-child(3) { transition-delay: 0.30s; }
+.pitch-deck #app.active .app-inner.reveal.revealed .app-cap:nth-child(4) { transition-delay: 0.38s; }
+
+/* Flow entrance */
+.pitch-deck #app .app-flow {
+  opacity: 0;
+  transform: translateY(18px);
+}
+
+.pitch-deck #app.active .app-inner.reveal.revealed .app-flow {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 0.6s var(--ease-out), transform 0.6s var(--ease-out);
+  transition-delay: 0.06s;
+}
+
+/* Header + footer entrance */
+.pitch-deck #app .app-header,
+.pitch-deck #app .app-footer {
+  opacity: 0;
+  transform: translateY(18px);
+}
+
+.pitch-deck #app.active .app-inner.reveal.revealed .app-header {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 0.6s var(--ease-out), transform 0.6s var(--ease-out);
+  transition-delay: 0.02s;
+}
+
+.pitch-deck #app.active .app-inner.reveal.revealed .app-footer {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 0.6s var(--ease-out), transform 0.6s var(--ease-out);
+  transition-delay: 0.48s;
+}
+
+/* ---------- Footer ---------- */
+.pitch-deck #app .app-footer {
+  text-align: center;
+}
+
+.pitch-deck #app .app-callout {
+  display: inline-block;
+  font-size: clamp(0.88rem, 1.3vw, 1rem);
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.45);
+  margin: 0;
+  padding: var(--space-4) var(--space-8);
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  background: rgba(255, 255, 255, 0.025);
+  letter-spacing: 0.01em;
+}
+
+.pitch-deck #app .app-callout strong {
+  color: var(--court-line);
+  font-weight: 700;
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width: 1080px) {
+  .pitch-deck #app .app-caps {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 640px) {
+  .pitch-deck #app .app-inner {
+    padding: 0 var(--space-4);
+    gap: var(--space-8);
+  }
+
+  .pitch-deck #app .app-headline {
+    font-size: clamp(1.7rem, 7.5vw, 2.4rem);
+  }
+
+  .pitch-deck #app .app-flow {
+    flex-wrap: wrap;
+    gap: var(--space-4);
+    justify-content: center;
+  }
+
+  .pitch-deck #app .app-flow-line {
+    display: none;
+  }
+
+  .pitch-deck #app .app-flow-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 14px;
+  }
+
+  .pitch-deck #app .app-caps {
+    grid-template-columns: 1fr;
+    gap: var(--space-4);
+  }
+
+  .pitch-deck #app .app-cap {
+    padding: var(--space-6) var(--space-5);
+    border-radius: 16px;
+  }
+
+  .pitch-deck #app .app-callout {
+    padding: var(--space-3) var(--space-5);
+    font-size: 0.84rem;
+  }
+}
+
+/* ---------- Accessibility ---------- */
+@media (prefers-reduced-motion: reduce) {
+  .pitch-deck #app .app-cap,
+  .pitch-deck #app .app-cap::before,
+  .pitch-deck #app .app-flow,
+  .pitch-deck #app .app-header,
+  .pitch-deck #app .app-footer,
+  .pitch-deck #app .app-bg-glow,
+  .pitch-deck #app .app-flow-pulse {
+    transition: none !important;
+    animation: none !important;
+  }
+  .pitch-deck #app .app-cap,
+  .pitch-deck #app .app-flow,
+  .pitch-deck #app .app-header,
+  .pitch-deck #app .app-footer {
+    opacity: 1;
+    transform: none;
+    filter: none;
+  }
+}
+
+/* ---------- Handwritten annotation above Track Progress card ---------- */
+.pitch-deck #app .app-cap-annotated {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  /* Let the card inside fill the wrapper so the grid stays even */
+}
+
+.pitch-deck #app .app-cap-annotated .app-cap {
+  flex: 1;
+}
+
+.pitch-deck #app .app-handwritten-note {
+  position: absolute;
+  top: -148px;
+  left: 50%;
+  transform: translateX(-50%) rotate(3deg);
+  white-space: nowrap;
+  z-index: 5;
+  pointer-events: none;
+  user-select: none;
+
+  /* Handwritten look */
+  font-family: "Instrument Serif", Georgia, serif;
+  font-style: italic;
+  font-weight: 400;
+  font-size: 3.1rem;
+  letter-spacing: 0.01em;
+  line-height: 1;
+  color: rgba(255, 255, 255, 0.88);
+  text-shadow: 0 2px 12px rgba(0, 0, 0, 0.35);
+
+  /* Entrance animation */
+  opacity: 0;
+  transition: opacity 0.5s var(--ease-out), transform 0.5s var(--ease-out);
+}
+
+.pitch-deck #app.active .app-inner.reveal.revealed .app-handwritten-note {
+  opacity: 1;
+  transform: translateX(-50%) rotate(3deg);
+  transition-delay: 0.55s;
+}
+
+/* Arrow from note to card */
+.pitch-deck #app .app-note-arrow {
+  position: absolute;
+  top: -100px;
+  left: 50%;
+  width: 80px;
+  height: auto;
+  transform: translateX(-20%) rotate(95deg) scaleX(1);
+  transform-origin: center center;
+  filter: invert(1) opacity(0.55) drop-shadow(0 4px 10px rgba(0, 0, 0, 0.3));
+  pointer-events: none;
+  user-select: none;
+  z-index: 4;
+  opacity: 0;
+  transition: opacity 0.5s var(--ease-out);
+}
+
+.pitch-deck #app.active .app-inner.reveal.revealed .app-note-arrow {
+  opacity: 1;
+  transition-delay: 0.62s;
+}
+
+/* Initial hidden state needs the same translateX so it doesn't jump */
+.pitch-deck #app .app-handwritten-note {
+  transform: translateX(-50%) rotate(3deg) translateY(8px);
+}
+
+.pitch-deck #app.active .app-inner.reveal.revealed .app-handwritten-note {
+  transform: translateX(-50%) rotate(3deg) translateY(0);
+}
+
+@media (max-width: 1080px) {
+  .pitch-deck #app .app-handwritten-note {
+    font-size: 2.4rem;
+    top: -50px;
+  }
+}
+
+@media (max-width: 640px) {
+  .pitch-deck #app .app-handwritten-note {
+    font-size: 2rem;
+    top: -44px;
+  }
+
+  .pitch-deck #app .app-note-arrow {
+    width: 55px;
+    top: -6px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pitch-deck #app .app-handwritten-note,
+  .pitch-deck #app .app-note-arrow {
+    opacity: 1;
+    transition: none !important;
+  }
+  .pitch-deck #app .app-handwritten-note {
+    transform: translateX(-50%) rotate(3deg) translateY(0);
+  }
+}
+
+/* Legacy (keep for other contexts outside pitch deck) */
 .pitch-deck .app-flow-node {
   padding: var(--space-5) var(--space-8);
   border-radius: 14px;

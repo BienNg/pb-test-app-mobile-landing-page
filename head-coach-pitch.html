@@ -383,26 +383,89 @@
 
     <!-- Section 6 – The App intro -->
     <section id="app" class="deck-slide section section-dark" data-slide="9" data-nav-label="The app">
-      <div class="container reveal">
-        <p class="section-label">The app</p>
-        <h2 class="section-title">Your Coaching, Scaled Through Technology</h2>
-        <p class="section-lead">We use technology to strengthen coaching — not replace it.</p>
-        <p class="section-lead">The academy app allows students to:</p>
-        <ul class="bullet-list" style="max-width: 28rem; margin: var(--space-4) auto 0;">
-          <li>Book coaching sessions</li>
-          <li>Rewatch recorded training sessions</li>
-          <li>Access structured video lessons</li>
-          <li>Track progress over time</li>
-        </ul>
-        <div class="slide-layout-app-flow" aria-hidden="true">
-          <span class="app-flow-node">You</span>
-          <span class="app-flow-arrow">→</span>
-          <span class="app-flow-node">Academy app</span>
-          <span class="app-flow-arrow">→</span>
-          <span class="app-flow-node">Students</span>
+      <div class="app-bg" aria-hidden="true">
+        <div class="app-bg-grain"></div>
+        <div class="app-bg-glow app-bg-glow--1"></div>
+        <div class="app-bg-glow app-bg-glow--2"></div>
+      </div>
+
+      <div class="app-inner reveal">
+        <header class="app-header">
+          <p class="section-label">The app</p>
+          <h2 class="app-headline">Your Coaching,<br><em>Scaled Through Technology</em></h2>
+          <p class="app-sub">We strengthen coaching through technology — never replace it.</p>
+        </header>
+
+        <!-- Flow diagram -->
+        <div class="app-flow" aria-label="Coaching flow">
+          <div class="app-flow-step">
+            <span class="app-flow-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M5 20c0-4 3.5-7 7-7s7 3 7 7"/></svg>
+            </span>
+            <span class="app-flow-label">You</span>
+          </div>
+          <span class="app-flow-line" aria-hidden="true">
+            <span class="app-flow-pulse"></span>
+          </span>
+          <div class="app-flow-step app-flow-step--center">
+            <span class="app-flow-icon app-flow-icon--accent" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="3"/><line x1="12" y1="18" x2="12" y2="18.01"/></svg>
+            </span>
+            <span class="app-flow-label">Academy App</span>
+          </div>
+          <span class="app-flow-line" aria-hidden="true">
+            <span class="app-flow-pulse"></span>
+          </span>
+          <div class="app-flow-step">
+            <span class="app-flow-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="7" r="3"/><circle cx="17" cy="9" r="2.5"/><path d="M2 20c0-3.5 3-6 7-6 1.2 0 2.3.2 3.3.6"/><path d="M12 20c0-2.8 2.2-5 5-5s5 2.2 5 5"/></svg>
+            </span>
+            <span class="app-flow-label">Students</span>
+          </div>
         </div>
-        <p class="slide-note" style="color: var(--gray-200); margin-top: var(--space-6);">Planned: video analysis, skill ratings, coach feedback tools.</p>
-        <p class="slide-emphasis">Your coaching philosophy becomes documented, repeatable, and scalable.</p>
+
+        <!-- Capability cards -->
+        <div class="app-caps" aria-label="App capabilities">
+          <article class="app-cap" tabindex="0">
+            <span class="app-cap-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M8 2v4"/><path d="M16 2v4"/><path d="M3 10h18"/></svg>
+            </span>
+            <h3 class="app-cap-title">Book Sessions</h3>
+            <p class="app-cap-desc">Personal coaching, clinics, and group sessions — all scheduled in-app.</p>
+          </article>
+
+          <article class="app-cap" tabindex="0">
+            <span class="app-cap-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+            </span>
+            <h3 class="app-cap-title">Rewatch Sessions</h3>
+            <p class="app-cap-desc">Recorded training with commentary — players review and improve between sessions.</p>
+          </article>
+
+          <article class="app-cap" tabindex="0">
+            <span class="app-cap-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/><line x1="9" y1="7" x2="16" y2="7"/><line x1="9" y1="11" x2="14" y2="11"/></svg>
+            </span>
+            <h3 class="app-cap-title">Video Library</h3>
+            <p class="app-cap-desc">100+ structured lessons: technique, strategy, drills. Your methodology, on demand.</p>
+          </article>
+
+          <div class="app-cap-annotated">
+            <span class="app-handwritten-note" aria-hidden="true">What our App does</span>
+            <img class="app-note-arrow" src="svg/stroke-medium-curve.svg" alt="" aria-hidden="true" />
+            <article class="app-cap" tabindex="0">
+              <span class="app-cap-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+              </span>
+              <h3 class="app-cap-title">Track Progress</h3>
+              <p class="app-cap-desc">Visual dashboards, milestones, and skill ratings — clear, measurable growth.</p>
+            </article>
+          </div>
+        </div>
+
+        <footer class="app-footer">
+          <p class="app-callout">Your coaching philosophy becomes <strong>documented</strong>, <strong>repeatable</strong>, and <strong>scalable</strong>.</p>
+        </footer>
       </div>
     </section>
 
