@@ -477,6 +477,20 @@
   gap: var(--space-10);
 }
 
+/* Big screens: tighter gap, columns aligned at top so they line up */
+@media (min-width: 900px) {
+  .pitch-deck #vision .slide-layout-split {
+    gap: var(--space-6);
+    align-items: flex-start;
+  }
+}
+
+@media (min-width: 1100px) {
+  .pitch-deck #vision .slide-layout-split {
+    gap: var(--space-6);
+  }
+}
+
 .pitch-deck #vision .slide-layout-split .slide-copy {
   padding-right: 0;
 }
@@ -512,8 +526,8 @@
 .pitch-deck #vision .chart-note {
   position: absolute;
   left: auto;
-  right: calc(100% + 14px - 50px); /* move 50px right */
-  top: calc(72% + 50px); /* move 50px down */
+  right: calc(100% + 14px - 50px);
+  top: calc(72% + 50px);
   transform: translateY(-50%) rotate(-2deg);
   display: flex;
   flex-direction: column;
@@ -573,6 +587,46 @@
 
   .pitch-deck #vision .chart-note-arrow {
     display: none;
+  }
+}
+
+/* Big screens: note and arrow to the right of the stats, same row */
+@media (min-width: 1100px) {
+  .pitch-deck #vision .chart-annotated {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+    gap: var(--space-6);
+    max-width: 620px; /* bars (~360px) + gap + note fit on one line */
+  }
+
+  .pitch-deck #vision .chart-bar-wrap {
+    order: 1;
+    flex-shrink: 0;
+  }
+
+  .pitch-deck #vision .chart-note {
+    position: static;
+    transform: translateX(-170px);
+    flex-shrink: 0;
+    order: 2;
+    margin: 0;
+    flex-direction: row; /* arrow then text: [bars][arrow][text] */
+    align-items: center;
+  }
+
+  .pitch-deck #vision .chart-note-text {
+    transform: none;
+    margin-top: 110px;
+  }
+
+  .pitch-deck #vision .chart-note-arrow {
+    display: block;
+    width: 140px;
+    height: 50px;
+    transform: scaleX(-1) rotate(-7deg);
+    order: 1;
   }
 }
 
