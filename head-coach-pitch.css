@@ -3439,42 +3439,53 @@ body.pitch-deck-active .deck-arrows.on-dark-slide .deck-arrow {
     display: contents;
   }
 
-  /* ---- Slides 10-12: Feature slides (keep horizontal split) ---- */
+  /* ---- Slides 10–12: Feature slides — natural spacing on mobile ---- */
+  .pitch-deck .deck-slide.fslide.section {
+    flex-direction: column;
+    justify-content: center;
+    align-items: stretch;
+  }
+
   .pitch-deck .deck-slide.fslide .fslide-inner {
-    flex-direction: row !important;
+    display: flex;
+    flex-direction: column !important;
     text-align: left;
-    align-items: center;
-    gap: var(--space-4);
-    padding: max(56px, 7dvh) var(--space-4) min(1rem, 2dvh) !important;
-    margin: 0 auto;
+    align-items: stretch;
+    justify-content: center;
+    gap: var(--space-5);
+    padding: max(56px, 5dvh) var(--space-4) max(1rem, 4dvh) !important;
+    margin: 0;
+    width: 100%;
   }
 
   .pitch-deck .fslide-copy {
-    flex: 1;
+    flex: 0 0 auto;
     min-width: 0;
   }
 
   .pitch-deck .fslide-num-row {
     justify-content: flex-start;
-    margin-bottom: min(0.3rem, 0.6dvh);
+    margin-bottom: min(0.35rem, 0.8dvh);
   }
 
   .pitch-deck .fslide-title {
     font-size: clamp(1.2rem, 4.5vw, 1.6rem) !important;
-    margin-bottom: min(0.3rem, 0.6dvh);
+    margin-bottom: min(0.35rem, 0.8dvh);
   }
 
   .pitch-deck .fslide-desc {
     font-size: 0.8rem;
     line-height: 1.4;
+    margin-bottom: 0;
   }
 
   .pitch-deck .fslide-device {
     flex: 0 0 auto;
+    align-self: center;
   }
 
   .pitch-deck .fslide-phone {
-    width: min(160px, 32vw);
+    width: min(170px, 34vw);
   }
 
   .pitch-deck .fslide-badge {
@@ -3488,10 +3499,24 @@ body.pitch-deck-active .deck-arrows.on-dark-slide .deck-arrow {
     font-size: 0.65rem;
   }
 
-  /* ---- Slide 13: Coach view ---- */
+  /* ---- Slide 13: Coach view — natural spacing on mobile ---- */
+  .pitch-deck .deck-slide.authority.section {
+    justify-content: center;
+    align-items: stretch;
+  }
+
+  .pitch-deck .deck-slide.authority .container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-top: max(56px, 5dvh);
+    padding-bottom: max(1rem, 4dvh);
+    gap: 0;
+  }
+
   .pitch-deck .deck-slide.authority .authority-screens {
-    gap: min(0.5rem, 1dvh);
-    margin-top: min(0.6rem, 1.2dvh);
+    gap: min(0.6rem, 1.5dvh);
+    margin-top: min(1rem, 2.5dvh);
     flex-wrap: nowrap;
   }
 
@@ -3535,27 +3560,56 @@ body.pitch-deck-active .deck-arrows.on-dark-slide .deck-arrow {
     margin-bottom: 0.1rem;
   }
 
-  /* ---- Slide 16: Support ---- */
+  /* ---- Slide 15: Support – spaced out naturally on mobile ---- */
+  .pitch-deck #support.deck-slide.section {
+    justify-content: center;
+    align-items: stretch;
+    padding-top: max(56px, 8dvh);
+    padding-bottom: max(1.25rem, 5dvh);
+  }
+
+  .pitch-deck #support .container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-left: var(--space-5);
+    padding-right: var(--space-5);
+    gap: 0;
+  }
+
+  .pitch-deck #support .section-label {
+    margin-bottom: var(--space-2);
+  }
+
+  .pitch-deck #support .section-title {
+    margin-bottom: var(--space-2);
+  }
+
+  .pitch-deck #support .section-lead {
+    margin-bottom: var(--space-5);
+  }
+
   .pitch-deck .slide-layout-split-roles {
-    gap: min(0.6rem, 1.2dvh);
-    margin-top: min(0.6rem, 1.2dvh);
+    gap: var(--space-5);
+    margin-top: 0;
   }
 
   .pitch-deck .split-role-card {
-    padding: min(0.6rem, 1.2dvh) 0.5rem;
+    padding: var(--space-5) var(--space-4);
   }
 
   .pitch-deck .split-role-card h3 {
-    font-size: 0.68rem;
-    margin-bottom: 0.2rem;
+    font-size: 0.75rem;
+    margin-bottom: var(--space-2);
   }
 
   .pitch-deck .split-role-card li {
-    font-size: 0.78rem;
-    margin-bottom: 0.1rem;
+    font-size: 0.8125rem;
+    margin-bottom: var(--space-1);
+    line-height: 1.45;
   }
 
-  /* ---- Slide 17: CTA ---- */
+  /* ---- Slide 16: CTA ---- */
   .pitch-deck .deck-slide.cta-section {
     padding-top: max(56px, 7dvh) !important;
     padding-bottom: min(1rem, 2dvh) !important;
