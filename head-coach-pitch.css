@@ -2936,48 +2936,63 @@ body.pitch-deck-active .deck-arrows.on-dark-slide .deck-arrow {
     margin-top: min(0.4rem, 0.8dvh);
   }
 
-  /* ---- Slide 0: Hero ---- */
+  /* ---- Slide 0: Hero – spaced out naturally on mobile ---- */
   .pitch-deck .hero.hero-recruit {
-    padding-top: max(56px, 7dvh) !important;
-    padding-bottom: min(1rem, 1.5dvh) !important;
+    padding-top: max(64px, 10dvh) !important;
+    padding-bottom: max(1.5rem, 4dvh) !important;
+    padding-left: var(--space-5) !important;
+    padding-right: var(--space-5) !important;
+    justify-content: center;
   }
 
-  .pitch-deck .hero.hero-recruit .hero-headline {
-    font-size: clamp(1.2rem, 5.5vw, 1.55rem) !important;
-    margin-bottom: min(0.5rem, 1dvh) !important;
-    line-height: 1.18;
-  }
-
-  .pitch-deck .hero.hero-recruit .hero-subheadline {
-    font-size: clamp(0.78rem, 2.6vw, 0.9rem) !important;
-    line-height: 1.4;
-    margin-bottom: min(0.75rem, 1.5dvh) !important;
-  }
-
-  .pitch-deck .hero.hero-recruit .hero-label {
-    font-size: 0.58rem;
-    margin-bottom: min(0.25rem, 0.5dvh);
+  .pitch-deck .hero.hero-recruit .hero-content-recruit {
+    width: 100%;
+    max-width: 100%;
   }
 
   .pitch-deck .recruit-hero {
-    gap: min(0.75rem, 1.5dvh);
+    gap: var(--space-8);
+    justify-items: stretch;
+    align-items: start;
+  }
+
+  .pitch-deck .recruit-hero-copy {
+    max-width: 100%;
+  }
+
+  .pitch-deck .hero.hero-recruit .hero-label {
+    font-size: 0.6rem;
+    margin-bottom: var(--space-3);
+  }
+
+  .pitch-deck .hero.hero-recruit .hero-headline {
+    font-size: clamp(1.35rem, 6vw, 1.7rem) !important;
+    margin-bottom: var(--space-4);
+    line-height: 1.22;
+  }
+
+  .pitch-deck .hero.hero-recruit .hero-subheadline {
+    font-size: clamp(0.875rem, 2.8vw, 0.95rem) !important;
+    line-height: 1.5;
+    margin-bottom: var(--space-6);
   }
 
   .pitch-deck .recruit-hero-ctas {
-    margin-bottom: min(0.5rem, 1dvh);
-    gap: var(--space-2);
+    margin-bottom: var(--space-5);
+    gap: var(--space-3);
   }
 
   .pitch-deck .recruit-hero-ctas .btn {
-    min-height: 38px;
-    padding: 0.5rem 0.85rem;
-    font-size: 0.85rem;
+    min-height: 44px;
+    padding: 0.65rem 1rem;
+    font-size: 0.9rem;
   }
 
   .pitch-deck .hero-fineprint {
-    font-size: 0.75rem;
-    line-height: 1.35;
-    padding-left: var(--space-3);
+    font-size: 0.8125rem;
+    line-height: 1.5;
+    padding-left: var(--space-4);
+    margin-top: var(--space-2);
   }
 
   /* Snapshot card: compact */
@@ -3062,114 +3077,144 @@ body.pitch-deck-active .deck-arrows.on-dark-slide .deck-arrow {
     border-radius: 10px;
   }
 
-  /* ---- Slide 2: Problem ---- */
-  .pitch-deck #problem .problem-layout {
-    gap: min(0.6rem, 1.2dvh);
-    margin-top: min(0.4rem, 0.8dvh);
+  /* ---- Slide 2: Problem – spaced out naturally on mobile ---- */
+  .pitch-deck #problem .slide-layout-problem {
+    padding-left: var(--space-5);
+    padding-right: var(--space-5);
   }
 
-  /* Force 2×2 grid so cards don't stack into a tall single column */
-  .pitch-deck #problem .problem-grid {
-    grid-template-columns: repeat(2, 1fr) !important;
-    gap: min(0.4rem, 0.8dvh);
+  .pitch-deck #problem .section-label {
+    margin-bottom: var(--space-3);
   }
 
-  .pitch-deck #problem .problem-card {
-    padding: min(0.6rem, 1.2dvh) 0.5rem;
-    border-radius: 10px;
-  }
-
-  .pitch-deck #problem .problem-num {
-    width: 24px;
-    height: 24px;
-    top: 0.3rem;
-    right: 0.3rem;
-    font-size: 0.58rem;
-    border-radius: 7px;
-  }
-
-  .pitch-deck #problem .problem-title {
-    font-size: 0.72rem;
-    margin: 0 1.8rem 0 0;
-  }
-
-  .pitch-deck #problem .problem-body {
-    font-size: 0.65rem;
-    line-height: 1.3;
-  }
-
-  .pitch-deck #problem .problem-icon {
-    width: 24px;
-    height: 24px;
-    border-radius: 7px;
-  }
-
-  .pitch-deck #problem .problem-icon svg {
-    width: 14px;
-    height: 14px;
-  }
-
-  .pitch-deck #problem .problem-head {
-    gap: 4px;
-    margin-bottom: 0.15rem;
-  }
-
-  .pitch-deck #problem .problem-impact {
-    padding: min(0.75rem, 1.5dvh) 0.6rem;
-    border-radius: 12px;
-  }
-
-  .pitch-deck #problem .problem-impact-kicker {
-    font-size: 0.58rem;
-    margin-bottom: 0.2rem;
-  }
-
-  .pitch-deck #problem .problem-impact-title {
-    font-size: clamp(0.88rem, 2.8vw, 1rem);
-    margin-bottom: 0.25rem;
+  .pitch-deck #problem .section-title {
+    margin-bottom: var(--space-4);
     line-height: 1.2;
   }
 
+  .pitch-deck #problem .section-lead {
+    margin-bottom: var(--space-5);
+  }
+
+  .pitch-deck #problem .problem-layout {
+    gap: var(--space-6);
+    margin-top: var(--space-5);
+  }
+
+  .pitch-deck #problem .problem-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: var(--space-3);
+  }
+
+  .pitch-deck #problem .problem-card {
+    padding: var(--space-4) var(--space-3);
+    border-radius: 12px;
+  }
+
+  .pitch-deck #problem .problem-num {
+    width: 26px;
+    height: 26px;
+    top: var(--space-2);
+    right: var(--space-2);
+    font-size: 0.62rem;
+    border-radius: 8px;
+  }
+
+  .pitch-deck #problem .problem-title {
+    font-size: 0.8rem;
+    margin: 0 1.75rem 0 0;
+    line-height: 1.25;
+  }
+
+  .pitch-deck #problem .problem-body {
+    font-size: 0.75rem;
+    line-height: 1.4;
+  }
+
+  .pitch-deck #problem .problem-icon {
+    width: 26px;
+    height: 26px;
+    border-radius: 8px;
+  }
+
+  .pitch-deck #problem .problem-icon svg {
+    width: 15px;
+    height: 15px;
+  }
+
+  .pitch-deck #problem .problem-head {
+    gap: var(--space-1);
+    margin-bottom: var(--space-2);
+  }
+
+  .pitch-deck #problem .problem-impact {
+    padding: var(--space-5) var(--space-4);
+    border-radius: 14px;
+  }
+
+  .pitch-deck #problem .problem-impact-kicker {
+    font-size: 0.62rem;
+    margin-bottom: var(--space-2);
+  }
+
+  .pitch-deck #problem .problem-impact-title {
+    font-size: clamp(0.95rem, 3vw, 1.05rem);
+    margin-bottom: var(--space-2);
+    line-height: 1.25;
+  }
+
   .pitch-deck #problem .problem-impact-sub {
-    font-size: 0.72rem;
-    margin-bottom: 0.35rem;
-    line-height: 1.35;
+    font-size: 0.8125rem;
+    margin-bottom: var(--space-3);
+    line-height: 1.4;
   }
 
   .pitch-deck #problem .problem-chips {
-    gap: 4px;
+    gap: var(--space-2);
   }
 
   .pitch-deck #problem .problem-chip {
-    padding: 0.2rem 0.4rem;
-    font-size: 0.62rem;
+    padding: 0.35rem 0.6rem;
+    font-size: 0.7rem;
   }
 
-  /* ---- Slides 3-6: Approach steps (keep side-by-side) ---- */
+  /* ---- Our Approach: Pillar steps (Pillar 1–4) – spaced out naturally ---- */
   .pitch-deck .slide-layout-approach-step {
     min-height: 0;
+    padding-left: var(--space-5);
+    padding-right: var(--space-5);
   }
 
+  /* Stack text above image on phone */
   .pitch-deck .slide-layout-approach-step .approach-panel {
-    grid-template-columns: 1.1fr 0.9fr !important;
-    gap: var(--space-4);
+    grid-template-columns: 1fr !important;
+    gap: var(--space-8);
+    align-items: stretch;
   }
 
   .pitch-deck .slide-layout-approach-step .approach-step-content {
-    padding-top: min(1rem, 2dvh);
+    padding-top: var(--space-6);
+    order: 1;
   }
 
-  .pitch-deck .slide-layout-approach-step .approach-step-title {
-    font-size: clamp(1.3rem, 5.5vw, 1.8rem);
+  .pitch-deck .slide-layout-approach-step .approach-step-visual {
+    order: 2;
+    display: grid;
+    place-items: center;
   }
 
   .pitch-deck .slide-layout-approach-step .approach-kicker {
-    font-size: 0.62rem;
-    margin-bottom: 0.25rem;
+    font-size: 0.68rem;
+    margin-bottom: var(--space-3);
+  }
+
+  .pitch-deck .slide-layout-approach-step .approach-step-title {
+    font-size: clamp(1.4rem, 6vw, 1.85rem);
+    line-height: 1.2;
   }
 
   .pitch-deck .slide-layout-approach-step .approach-step-visual img {
-    width: min(200px, 38vw);
+    width: min(320px, 88vw);
   }
 
   .approach-sticky-title {
@@ -3177,180 +3222,210 @@ body.pitch-deck-active .deck-arrows.on-dark-slide .deck-arrow {
     top: calc(56px + var(--space-8)) !important;
   }
 
-  /* ---- Slide 7: Approach overview ---- */
+  /* ---- Our Approach: Overview (all 4 pillars) – spaced out naturally ---- */
   .pitch-deck .slide-layout-approach-overview {
     min-height: 0;
-    gap: min(0.75rem, 1.5dvh);
+    gap: var(--space-8);
+    padding-left: var(--space-5);
+    padding-right: var(--space-5);
   }
 
   .pitch-deck .slide-layout-approach-overview .approach-overview-head {
-    padding-top: min(0.75rem, 1.5dvh);
+    padding-top: var(--space-6);
   }
 
   .pitch-deck .slide-layout-approach-overview .approach-overview-title {
-    font-size: clamp(1.2rem, 4.5vw, 1.6rem);
-  }
-
-  .pitch-deck .slide-layout-approach-overview .approach-panel {
-    gap: min(0.75rem, 1.5dvh);
-  }
-
-  /* Force 2×2 grid for overview cards */
-  .pitch-deck .slide-layout-approach-overview .approach-overview-grid {
-    grid-template-columns: repeat(2, 1fr) !important;
-    gap: min(0.4rem, 0.8dvh);
-  }
-
-  .pitch-deck .slide-layout-approach-overview .approach-overview-card {
-    padding: min(0.6rem, 1.2dvh) 0.5rem;
-    border-radius: 10px;
-  }
-
-  .pitch-deck .slide-layout-approach-overview .approach-overview-card-kicker {
-    font-size: 0.55rem;
-    margin-bottom: 0.1rem;
-  }
-
-  .pitch-deck .slide-layout-approach-overview .approach-overview-card-title {
-    font-size: 0.75rem;
+    font-size: clamp(1.35rem, 5vw, 1.65rem);
     line-height: 1.2;
   }
 
+  .pitch-deck .slide-layout-approach-overview .approach-panel {
+    gap: var(--space-8);
+  }
+
+  .pitch-deck .slide-layout-approach-overview .approach-overview-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: var(--space-4);
+  }
+
+  .pitch-deck .slide-layout-approach-overview .approach-overview-card {
+    padding: var(--space-4) var(--space-3);
+    border-radius: 14px;
+  }
+
+  .pitch-deck .slide-layout-approach-overview .approach-overview-card-kicker {
+    font-size: 0.62rem;
+    margin-bottom: var(--space-2);
+  }
+
+  .pitch-deck .slide-layout-approach-overview .approach-overview-card-title {
+    font-size: 0.8125rem;
+    line-height: 1.3;
+  }
+
   .pitch-deck .slide-layout-approach-overview .approach-overview-icon {
-    margin-top: min(0.35rem, 0.7dvh);
+    margin-top: var(--space-4);
   }
 
   .pitch-deck .slide-layout-approach-overview .approach-overview-icon img {
-    max-width: 90px;
+    max-width: 100px;
   }
 
-  /* ---- Slide 8: Role ---- */
+  /* ---- Slide 8: Role – spaced out naturally on mobile ---- */
   .pitch-deck #role .role-inner {
-    gap: min(0.75rem, 1.5dvh);
-    padding: 0 var(--space-4);
+    gap: var(--space-8);
+    padding: 0 var(--space-5);
+    max-width: 100%;
+    justify-content: flex-start;
+    align-items: stretch;
+  }
+
+  .pitch-deck #role .role-header {
+    margin-bottom: var(--space-2);
   }
 
   .pitch-deck #role .role-headline {
-    font-size: clamp(1.3rem, 5.5vw, 1.8rem);
-    margin-bottom: min(0.3rem, 0.6dvh);
+    font-size: clamp(1.35rem, 5.5vw, 1.9rem);
+    margin-bottom: var(--space-3);
+    line-height: 1.15;
   }
 
   .pitch-deck #role .role-sub {
-    font-size: 0.78rem;
+    font-size: 0.8125rem;
+    margin-bottom: 0;
   }
 
-  /* Force 2×2 grid so cards don't stack */
+  /* 2×2 grid with comfortable gaps */
   .pitch-deck #role .role-grid {
     grid-template-columns: repeat(2, 1fr) !important;
-    gap: min(0.4rem, 0.8dvh);
+    gap: var(--space-4);
+    width: 100%;
   }
 
   .pitch-deck #role .role-card {
     min-height: 0 !important;
-    padding: min(0.7rem, 1.2dvh) 0.6rem;
-    border-radius: 12px;
+    padding: var(--space-4) var(--space-3);
+    border-radius: 14px;
+    justify-content: flex-end;
   }
 
   .pitch-deck #role .role-card-num {
-    font-size: 2.5rem;
+    font-size: 2.75rem;
   }
 
   .pitch-deck #role .role-card-title {
-    font-size: 0.78rem;
-    margin-bottom: 0.1rem;
+    font-size: 0.8125rem;
+    margin-bottom: var(--space-2);
   }
 
   .pitch-deck #role .role-card-desc {
-    font-size: 0.65rem;
-    line-height: 1.35;
+    font-size: 0.7rem;
+    line-height: 1.4;
+  }
+
+  .pitch-deck #role .role-footer {
+    margin-top: var(--space-2);
   }
 
   .pitch-deck #role .role-callout {
-    padding: min(0.35rem, 0.7dvh) 0.6rem;
-    font-size: 0.68rem;
+    padding: var(--space-3) var(--space-5);
+    font-size: 0.8rem;
   }
 
-  /* ---- Slide 9: App ---- */
+  /* ---- Slide 9: App – spaced out naturally on mobile ---- */
   .pitch-deck #app .app-inner {
-    gap: min(0.6rem, 1.2dvh);
-    padding: 0 var(--space-4);
+    gap: var(--space-8);
+    padding: 0 var(--space-5);
+    max-width: 100%;
+    justify-content: flex-start;
+    align-items: stretch;
+  }
+
+  .pitch-deck #app .app-header {
+    margin-bottom: var(--space-2);
   }
 
   .pitch-deck #app .app-headline {
-    font-size: clamp(1.2rem, 5vw, 1.6rem);
-    margin-bottom: min(0.25rem, 0.5dvh);
+    font-size: clamp(1.35rem, 5vw, 1.9rem);
+    margin-bottom: var(--space-3);
+    line-height: 1.15;
   }
 
   .pitch-deck #app .app-sub {
-    font-size: 0.75rem;
+    font-size: 0.8125rem;
+    margin-bottom: 0;
   }
 
-  /* Keep flow inline but compact */
+  /* Flow: You → App → Students with comfortable spacing */
   .pitch-deck #app .app-flow {
-    gap: 0;
+    gap: var(--space-3);
     flex-wrap: nowrap;
   }
 
   .pitch-deck #app .app-flow-line {
     display: block !important;
-    min-width: 20px;
-    max-width: 40px;
+    min-width: 24px;
+    max-width: 48px;
   }
 
   .pitch-deck #app .app-flow-icon {
-    width: 32px;
-    height: 32px;
-    border-radius: 9px;
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
   }
 
   .pitch-deck #app .app-flow-icon svg {
-    width: 16px;
-    height: 16px;
+    width: 18px;
+    height: 18px;
   }
 
   .pitch-deck #app .app-flow-label {
-    font-size: 0.58rem;
+    font-size: 0.6875rem;
   }
 
   .pitch-deck #app .app-flow-step {
-    gap: 0.15rem;
+    gap: var(--space-1);
   }
 
-  /* Force 2×2 grid for capability cards */
+  /* 2×2 grid for capability cards with comfortable gaps */
   .pitch-deck #app .app-caps {
     grid-template-columns: repeat(2, 1fr) !important;
-    gap: min(0.4rem, 0.8dvh);
+    gap: var(--space-4);
   }
 
   .pitch-deck #app .app-cap {
-    padding: min(0.55rem, 1dvh) 0.5rem;
-    border-radius: 10px;
-    gap: min(0.2rem, 0.4dvh);
+    padding: var(--space-4) var(--space-3);
+    border-radius: 14px;
+    gap: var(--space-2);
   }
 
   .pitch-deck #app .app-cap-icon {
-    width: 26px;
-    height: 26px;
-    border-radius: 7px;
+    width: 36px;
+    height: 36px;
+    border-radius: 10px;
   }
 
   .pitch-deck #app .app-cap-icon svg {
-    width: 14px;
-    height: 14px;
+    width: 18px;
+    height: 18px;
   }
 
   .pitch-deck #app .app-cap-title {
-    font-size: 0.72rem;
+    font-size: 0.8125rem;
   }
 
   .pitch-deck #app .app-cap-desc {
-    font-size: 0.6rem;
-    line-height: 1.3;
+    font-size: 0.7rem;
+    line-height: 1.4;
+  }
+
+  .pitch-deck #app .app-footer {
+    margin-top: var(--space-2);
   }
 
   .pitch-deck #app .app-callout {
-    padding: min(0.3rem, 0.6dvh) 0.5rem;
-    font-size: 0.68rem;
+    padding: var(--space-3) var(--space-5);
+    font-size: 0.8rem;
   }
 
   /* Hide handwritten annotation on mobile (saves vertical space) */
