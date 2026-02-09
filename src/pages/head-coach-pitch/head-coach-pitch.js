@@ -169,6 +169,11 @@
         else indicatorBtns[i].removeAttribute('aria-current');
       }
     }
+    if (deck) {
+      var curSlide = slides[current];
+      var slideIsDark = curSlide && (curSlide.classList.contains('section-dark') || curSlide.classList.contains('cta-section'));
+      deck.classList.toggle('transition-bg-light', !slideIsDark);
+    }
   }
 
   function isApproachSlide(slide) {
@@ -513,6 +518,19 @@
     }
 
     withExitDelay(function() {
+      // Match deck background to incoming slide and animate so it blends by transition end (no hard cut).
+      if (deck) {
+        var nextIsDark = next.classList.contains('section-dark') || next.classList.contains('cta-section');
+        deck.classList.toggle('transition-bg-light', !nextIsDark);
+      }
+      // When leaving the approach section (e.g. slide 8 → 9), hide the title instantly (no exit animation).
+      if (approachTitleEl && isApproachSlide(prev) && !isApproachSlide(next)) {
+        approachTitleEl.style.transition = 'none';
+        approachTitleEl.classList.remove('is-visible');
+        requestAnimationFrame(function() {
+          approachTitleEl.style.transition = '';
+        });
+      }
       prev.classList.add('leaving');
       prev.classList.remove('active');
       if (goingForward) {

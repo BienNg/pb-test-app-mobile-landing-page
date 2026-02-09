@@ -9,9 +9,20 @@
   --pitch-accent: var(--court-line);
   --pitch-accent-muted: rgba(82, 183, 136, 0.35);
   --pitch-dark-bg: #161614;
+  --pitch-light-bg: #f5f4f1;
   --pitch-card-bg: rgba(255, 255, 255, 0.04);
   --pitch-bar-height: 28px;
   --pitch-reveal-delay: 0.05s;
+  background: var(--pitch-dark-bg);
+}
+
+.pitch-deck.transition-bg-light {
+  background: var(--pitch-light-bg);
+}
+
+/* Animate deck background when toggling light/dark so transition into a new slide has no hard cut */
+.pitch-deck {
+  transition: background 0.45s var(--ease-out);
 }
 
 /* ---------- Typography ---------- */
