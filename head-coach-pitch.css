@@ -1328,6 +1328,18 @@
   box-shadow: 0 12px 30px rgba(82, 183, 136, 0.15);
 }
 
+/* Academy App center icon – larger to emphasize slide focus */
+.pitch-deck #app .app-flow-step--center .app-flow-icon {
+  width: 80px;
+  height: 80px;
+  border-radius: 20px;
+}
+
+.pitch-deck #app .app-flow-step--center .app-flow-icon svg {
+  width: 36px;
+  height: 36px;
+}
+
 .pitch-deck #app .app-flow-label {
   font-size: 0.8125rem;
   font-weight: 700;
@@ -1636,6 +1648,17 @@
     width: 48px;
     height: 48px;
     border-radius: 14px;
+  }
+
+  .pitch-deck #app .app-flow-step--center .app-flow-icon {
+    width: 64px;
+    height: 64px;
+    border-radius: 18px;
+  }
+
+  .pitch-deck #app .app-flow-step--center .app-flow-icon svg {
+    width: 30px;
+    height: 30px;
   }
 
   .pitch-deck #app .app-caps {
@@ -3377,6 +3400,17 @@ body.pitch-deck-active .deck-arrows.on-dark-slide .deck-arrow {
   .pitch-deck #app .app-flow-icon svg {
     width: 18px;
     height: 18px;
+  }
+
+  .pitch-deck #app .app-flow-step--center .app-flow-icon {
+    width: 56px;
+    height: 56px;
+    border-radius: 14px;
+  }
+
+  .pitch-deck #app .app-flow-step--center .app-flow-icon svg {
+    width: 24px;
+    height: 24px;
   }
 
   .pitch-deck #app .app-flow-label {
