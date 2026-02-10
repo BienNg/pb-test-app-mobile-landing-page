@@ -531,6 +531,10 @@
           approachTitleEl.style.transition = '';
         });
       }
+      // When entering the approach section, show the title immediately so it's visible before the slide animates in.
+      if (approachTitleEl && isApproachSlide(next)) {
+        approachTitleEl.classList.add('is-visible');
+      }
       prev.classList.add('leaving');
       prev.classList.remove('active');
       if (goingForward) {

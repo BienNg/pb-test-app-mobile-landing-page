@@ -2523,6 +2523,16 @@ body.pitch-deck-active .deck-arrows.on-dark-slide .deck-arrow {
   z-index: 1;
 }
 
+.pitch-deck #problem .section-title .title-accent {
+  color: var(--problem-danger);
+  font-weight: 900;
+  padding: 0.08em 0.2em;
+  background: var(--problem-danger-soft);
+  border-radius: 6px;
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+}
+
 .pitch-deck #problem .slide-layout-problem {
   max-width: 1100px;
   margin: 0 auto;
@@ -2764,7 +2774,6 @@ body.pitch-deck-active .deck-arrows.on-dark-slide .deck-arrow {
   user-select: none;
   opacity: 0;
   transform: translateY(-6px);
-  transition: opacity var(--duration-fast), transform var(--duration-fast);
 }
 
 .approach-sticky-title.is-visible {
@@ -2829,6 +2838,40 @@ body.pitch-deck-active .deck-arrows.on-dark-slide .deck-arrow {
   line-height: 1.05;
   letter-spacing: -0.04em;
   text-wrap: balance;
+}
+
+/* Reusable title-accent highlight for approach steps (Framework, Multiple Coaches, etc.) */
+.pitch-deck .slide-layout-approach-step .approach-step-title .title-accent,
+.pitch-deck .approach-overview-card-title .title-accent {
+  color: var(--pitch-accent);
+  font-weight: 900;
+  display: inline-block;
+  position: relative;
+  padding: 0 0.4em 0.12em;
+  border-radius: 6px;
+  z-index: 0;
+}
+
+.pitch-deck .slide-layout-approach-step .approach-step-title .title-accent::before,
+.pitch-deck .approach-overview-card-title .title-accent::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: var(--pitch-accent-muted);
+  border-radius: 6px;
+  transform-origin: left;
+  transform: scaleX(0);
+  transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1) 0.35s;
+  will-change: transform;
+}
+
+.pitch-deck .deck-slide.active .approach-step-title .title-accent::before {
+  transform: scaleX(1);
+}
+
+.pitch-deck #approach-overview.active .approach-overview-card-title .title-accent::before {
+  transform: scaleX(1);
 }
 
 /* Approach overview slide */
