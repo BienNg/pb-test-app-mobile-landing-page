@@ -709,7 +709,7 @@
     form.addEventListener('submit', function(e) {
       e.preventDefault();
       var data = new FormData(form);
-      window.location.href = 'mailto:headcoach@academy.vn?subject=Head%20Coach%20Application&body=' +
+      window.location.href = 'mailto:bien-nguyen@outlook.com?subject=Head%20Coach%20Application&body=' +
         encodeURIComponent(
           'Name: ' + (data.get('name') || '') + '\n' +
           'Background: ' + (data.get('background') || '') + '\n' +
